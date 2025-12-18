@@ -1,32 +1,17 @@
-import React, { useState, useEffect } from 'react'
+import React from 'react'
+import { BrowserRouter, Routes, Route } from 'react-router-dom'
 import HomePage from './pages/HomePage'
 import PrivacyPolicy from './pages/PrivacyPolicy'
 
 function App() {
-  const [currentPage, setCurrentPage] = useState('home')
-
-  useEffect(() => {
-    const handleHashChange = () => {
-      const hash = window.location.hash.slice(1)
-      if (hash === 'privacy-policy') {
-        setCurrentPage('privacy-policy')
-      } else {
-        setCurrentPage('home')
-      }
-    }
-
-    // Check initial hash
-    handleHashChange()
-
-    // Listen for hash changes
-    window.addEventListener('hashchange', handleHashChange)
-
-    return () => {
-      window.removeEventListener('hashchange', handleHashChange)
-    }
-  }, [])
-
-  return currentPage === 'privacy-policy' ? <PrivacyPolicy /> : <HomePage />
+  return (
+    <BrowserRouter>
+      <Routes>
+        <Route path="/" element={<HomePage />} />
+        <Route path="/privacy-policy" element={<PrivacyPolicy />} />
+      </Routes>
+    </BrowserRouter>
+  )
 }
 
 export default App

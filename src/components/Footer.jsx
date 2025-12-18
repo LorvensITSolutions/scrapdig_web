@@ -1,12 +1,13 @@
 import React from 'react'
+import { Link } from 'react-router-dom'
 import logo from '../assets/GREEN LOGO.png'
 
 const Footer = () => {
   const quickLinks = [
-    { label: "Features", href: "#features" },
-    { label: "How It Works", href: "#how-it-works" },
-    { label: "Contact", href: "#contact" },
-    { label: "Privacy Policy", href: "#privacy-policy" }
+    { label: "Features", href: "#features", isHash: true },
+    { label: "How It Works", href: "#how-it-works", isHash: true },
+    { label: "Contact", href: "#contact", isHash: true },
+    { label: "Privacy Policy", href: "/privacy-policy", isHash: false }
   ]
 
   return (
@@ -30,9 +31,15 @@ const Footer = () => {
             <ul className="space-y-2 text-gray-400">
               {quickLinks.map((link, index) => (
                 <li key={index}>
-                  <a href={link.href} className="hover:text-white transition">
-                    {link.label}
-                  </a>
+                  {link.isHash ? (
+                    <a href={link.href} className="hover:text-white transition">
+                      {link.label}
+                    </a>
+                  ) : (
+                    <Link to={link.href} className="hover:text-white transition">
+                      {link.label}
+                    </Link>
+                  )}
                 </li>
               ))}
             </ul>

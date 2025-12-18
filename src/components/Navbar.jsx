@@ -1,11 +1,19 @@
 import React, { useState, useEffect } from 'react'
+import { Link, useLocation } from 'react-router-dom'
 import logo from '../assets/GREEN LOGO.png'
 
 const Navbar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false)
   const [activeLink, setActiveLink] = useState('')
+  const location = useLocation()
 
   useEffect(() => {
+    // Check if we're on privacy policy page
+    if (location.pathname === '/privacy-policy') {
+      setActiveLink('privacy-policy')
+      return
+    }
+
     const handleScroll = () => {
       const sections = ['features', 'how-it-works', 'contact']
       const scrollPosition = window.scrollY + 100
@@ -46,18 +54,20 @@ const Navbar = () => {
       window.removeEventListener('scroll', handleScroll)
       window.removeEventListener('hashchange', handleHashChange)
     }
-  }, [])
+  }, [location.pathname])
 
   return (
     <nav className="sticky top-0 z-50 backdrop-blur-md bg-white/80 border-b border-white/20 shadow-lg">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between items-center h-20">
           <div className="flex items-center space-x-3">
-            <a 
-              href="#" 
+            <Link 
+              to="/"
               onClick={(e) => {
-                e.preventDefault()
-                window.scrollTo({ top: 0, behavior: 'smooth' })
+                if (location.pathname === '/') {
+                  e.preventDefault()
+                  window.scrollTo({ top: 0, behavior: 'smooth' })
+                }
               }}
               className="relative cursor-pointer hover:opacity-80 transition-opacity"
             >
@@ -66,7 +76,7 @@ const Navbar = () => {
                 alt="ScrapDig Logo" 
                 className="h-12 w-auto object-contain"
               />
-            </a>
+            </Link>
           </div>
           
           {/* Desktop Menu */}
@@ -101,8 +111,8 @@ const Navbar = () => {
             >
               Contact
             </a>
-            <a 
-              href="#privacy-policy" 
+            <Link 
+              to="/privacy-policy" 
               className={`transition font-medium text-sm ${
                 activeLink === 'privacy-policy' 
                   ? 'text-primary font-semibold border-b-2 border-primary pb-1' 
@@ -110,7 +120,7 @@ const Navbar = () => {
               }`}
             >
               Privacy Policy
-            </a>
+            </Link>
           </div>
 
           {/* Mobile Menu Button */}
@@ -164,8 +174,8 @@ const Navbar = () => {
             >
               Contact
             </a>
-            <a 
-              href="#privacy-policy" 
+            <Link 
+              to="/privacy-policy" 
               className={`block px-4 py-3 transition rounded-lg font-medium ${
                 activeLink === 'privacy-policy' 
                   ? 'bg-primary/20 text-primary font-semibold' 
@@ -174,7 +184,7 @@ const Navbar = () => {
               onClick={() => setIsMenuOpen(false)}
             >
               Privacy Policy
-            </a>
+            </Link>
           </div>
         )}
       </div>

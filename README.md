@@ -38,9 +38,36 @@ npm run preview
 
 After building, upload the contents of the `dist` folder to your web server.
 
+**Important:** This app uses React Router with BrowserRouter. You must configure your web server to serve `index.html` for all routes (SPA fallback) so that direct URLs like `/privacy-policy` work correctly.
+
+### Server Configuration Examples:
+
+**Nginx:**
+```nginx
+location / {
+  try_files $uri $uri/ /index.html;
+}
+```
+
+**Apache (.htaccess):**
+```apache
+<IfModule mod_rewrite.c>
+  RewriteEngine On
+  RewriteBase /
+  RewriteRule ^index\.html$ - [L]
+  RewriteCond %{REQUEST_FILENAME} !-f
+  RewriteCond %{REQUEST_FILENAME} !-d
+  RewriteRule . /index.html [L]
+</IfModule>
+```
+
 For deployment to `scrapdig.lorvensit.online`:
 1. Build the project: `npm run build`
 2. Upload the `dist` folder contents to your server
-3. Configure your web server (nginx/apache) to serve the files
+3. Configure your web server (nginx/apache) with the SPA fallback rules above
 4. Set up the subdomain `scrapdig.lorvensit.online` to point to this directory
+
+### Routes:
+- `/` - Home page
+- `/privacy-policy` - Privacy Policy page (directly accessible URL for app store review)
 
