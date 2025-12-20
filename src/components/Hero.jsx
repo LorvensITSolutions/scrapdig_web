@@ -11,7 +11,7 @@ const Hero = () => {
   ]
 
   return (
-    <section className="w-full relative overflow-hidden bg-gradient-to-br from-slate-900 via-emerald-950 to-slate-900 h-screen flex items-center">
+    <section className="w-full relative overflow-hidden bg-gradient-to-br from-slate-900 via-emerald-950 to-slate-900 min-h-screen flex items-center py-12 sm:py-16 lg:py-0 lg:h-screen">
       {/* Animated background elements */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
         <motion.div
@@ -24,7 +24,7 @@ const Hero = () => {
             repeat: Infinity,
             ease: "easeInOut"
           }}
-          className="absolute top-20 right-20 w-[500px] h-[500px] bg-emerald-500/20 rounded-full blur-3xl"
+          className="absolute top-10 right-10 sm:top-20 sm:right-20 w-[200px] h-[200px] sm:w-[300px] sm:h-[300px] lg:w-[500px] lg:h-[500px] bg-emerald-500/20 rounded-full blur-3xl"
         />
         <motion.div
           animate={{
@@ -36,7 +36,7 @@ const Hero = () => {
             repeat: Infinity,
             ease: "easeInOut"
           }}
-          className="absolute bottom-20 left-20 w-[500px] h-[500px] bg-teal-500/20 rounded-full blur-3xl"
+          className="absolute bottom-10 left-10 sm:bottom-20 sm:left-20 w-[200px] h-[200px] sm:w-[300px] sm:h-[300px] lg:w-[500px] lg:h-[500px] bg-teal-500/20 rounded-full blur-3xl"
         />
         <motion.div
           animate={{
@@ -49,22 +49,22 @@ const Hero = () => {
             ease: "easeInOut",
             delay: 1
           }}
-          className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-green-500/10 rounded-full blur-3xl"
+          className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-[300px] h-[300px] sm:w-[400px] sm:h-[400px] lg:w-[600px] lg:h-[600px] bg-green-500/10 rounded-full blur-3xl"
         />
         {/* Grid pattern overlay */}
         <div className="absolute inset-0 bg-[linear-gradient(to_right,#80808012_1px,transparent_1px),linear-gradient(to_bottom,#80808012_1px,transparent_1px)] bg-[size:24px_24px] opacity-30"></div>
       </div>
 
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 lg:py-12 relative z-10">
-        <div className="grid lg:grid-cols-2 gap-8 items-center">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 sm:py-8 lg:py-12 relative z-10 w-full">
+        <div className="grid lg:grid-cols-2 gap-6 sm:gap-8 items-center">
           {/* Left Content */}
           <motion.div
             initial={{ opacity: 0, x: -50 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.8 }}
-            className="text-center lg:text-left space-y-4 z-10"
+            className="text-center lg:text-left space-y-3 sm:space-y-4 z-10"
           >
-            <div className="space-y-3">
+            <div className="space-y-2 sm:space-y-3">
               <motion.div
                 initial={{ opacity: 0, y: 20, scale: 0.9 }}
                 animate={{ opacity: 1, y: 0, scale: 1 }}
@@ -72,11 +72,12 @@ const Hero = () => {
                 className="inline-block"
               >
                 <motion.span 
-                  className="inline-flex items-center px-4 py-2 rounded-full bg-gradient-to-r from-emerald-500/20 to-teal-500/20 backdrop-blur-md border border-emerald-500/30 text-emerald-300 text-xs font-bold shadow-lg"
+                  className="inline-flex items-center px-3 py-1.5 sm:px-4 sm:py-2 rounded-full bg-gradient-to-r from-emerald-500/20 to-teal-500/20 backdrop-blur-md border border-emerald-500/30 text-emerald-300 text-[10px] sm:text-xs font-bold shadow-lg"
                   whileHover={{ scale: 1.05 }}
                 >
-                  <span className="mr-2 text-base">🌍</span>
-                  India's #1 Recycling Platform
+                  <span className="mr-1.5 sm:mr-2 text-sm sm:text-base">🌍</span>
+                  <span className="hidden sm:inline">India's #1 Recycling Platform</span>
+                  <span className="sm:hidden">#1 Recycling</span>
                   <motion.span
                     animate={{ scale: [1, 1.2, 1] }}
                     transition={{ duration: 2, repeat: Infinity }}
@@ -91,7 +92,7 @@ const Hero = () => {
                 initial={{ opacity: 0, y: 30 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.3, duration: 0.8 }}
-                className="text-4xl lg:text-5xl xl:text-6xl font-extrabold leading-tight"
+                className="text-3xl sm:text-4xl md:text-5xl lg:text-5xl xl:text-6xl font-extrabold leading-tight"
               >
                 <span className="text-white">Transform Waste into</span>
                 <motion.span 
@@ -116,7 +117,7 @@ const Hero = () => {
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.4 }}
-                className="text-base lg:text-lg text-gray-300 leading-relaxed max-w-2xl mx-auto lg:mx-0"
+                className="text-sm sm:text-base lg:text-lg text-gray-300 leading-relaxed max-w-2xl mx-auto lg:mx-0 px-2 sm:px-0"
               >
                 ScrapDig is India's innovative recycling platform that rewards you for every scrap you recycle. Join thousands of eco-warriors building a sustainable future while earning coins, leveling up, and making a real environmental impact.
               </motion.p>
@@ -126,11 +127,11 @@ const Hero = () => {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.5 }}
-              className="flex flex-col sm:flex-row gap-3 justify-center lg:justify-start"
+              className="flex flex-col sm:flex-row gap-2 sm:gap-3 justify-center lg:justify-start px-2 sm:px-0"
             >
               <motion.a 
                 href="#features"
-                className="group relative bg-gradient-to-r from-emerald-500 to-teal-500 text-white px-6 py-3 rounded-xl font-bold text-base overflow-hidden shadow-2xl"
+                className="group relative bg-gradient-to-r from-emerald-500 to-teal-500 text-white px-5 py-2.5 sm:px-6 sm:py-3 rounded-xl font-bold text-sm sm:text-base overflow-hidden shadow-2xl w-full sm:w-auto"
                 whileHover={{ scale: 1.05, y: -2 }}
                 whileTap={{ scale: 0.95 }}
               >
@@ -153,7 +154,7 @@ const Hero = () => {
               </motion.a>
               <motion.a 
                 href="#how-it-works"
-                className="bg-slate-800/50 backdrop-blur-md text-white border-2 border-emerald-500/50 px-6 py-3 rounded-xl font-bold text-base hover:border-emerald-400 transition-all duration-300 shadow-xl"
+                className="bg-slate-800/50 backdrop-blur-md text-white border-2 border-emerald-500/50 px-5 py-2.5 sm:px-6 sm:py-3 rounded-xl font-bold text-sm sm:text-base hover:border-emerald-400 transition-all duration-300 shadow-xl w-full sm:w-auto"
                 whileHover={{ scale: 1.05, y: -2, borderColor: 'rgb(16, 185, 129)' }}
                 whileTap={{ scale: 0.95 }}
               >
@@ -161,12 +162,32 @@ const Hero = () => {
               </motion.a>
             </motion.div>
 
+            {/* Mobile Image - Shows after buttons on mobile */}
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.55 }}
+              className="relative block lg:hidden mt-6"
+            >
+              <div className="relative z-10">
+                <motion.div
+                  className="relative bg-gradient-to-br from-slate-800/50 to-slate-900/50 backdrop-blur-md rounded-2xl p-2 border border-emerald-500/30 shadow-2xl"
+                >
+                  <motion.img
+                    src={heroImage} 
+                    alt="ScrapDig App - Recycle, Earn, Level Up"
+                    className="w-full h-auto rounded-2xl"
+                  />
+                </motion.div>
+              </div>
+            </motion.div>
+
             {/* Enhanced Key Stats */}
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.6 }}
-              className="grid grid-cols-2 lg:grid-cols-4 gap-3 pt-4"
+              className="grid grid-cols-2 lg:grid-cols-4 gap-2 sm:gap-3 pt-3 sm:pt-4"
             >
               {stats.map((stat, index) => (
                 <motion.div
@@ -175,7 +196,7 @@ const Hero = () => {
                   animate={{ opacity: 1, scale: 1, y: 0 }}
                   transition={{ delay: 0.7 + index * 0.1, type: "spring", stiffness: 200 }}
                   whileHover={{ scale: 1.1, y: -5 }}
-                  className="relative group text-center lg:text-left bg-gradient-to-br from-slate-800/80 to-slate-900/80 backdrop-blur-md rounded-xl p-4 border border-emerald-500/30 hover:border-emerald-400/60 transition-all shadow-xl overflow-hidden"
+                  className="relative group text-center lg:text-left bg-gradient-to-br from-slate-800/80 to-slate-900/80 backdrop-blur-md rounded-lg sm:rounded-xl p-2.5 sm:p-3 lg:p-4 border border-emerald-500/30 hover:border-emerald-400/60 transition-all shadow-xl overflow-hidden"
                 >
                   {/* Animated background gradient */}
                   <motion.div
@@ -183,7 +204,7 @@ const Hero = () => {
                   />
                   <div className="relative z-10">
                     <motion.div 
-                      className="text-2xl mb-1"
+                      className="text-xl sm:text-2xl mb-0.5 sm:mb-1"
                       animate={{ 
                         rotate: [0, 10, -10, 0],
                         scale: [1, 1.1, 1]
@@ -197,10 +218,10 @@ const Hero = () => {
                     >
                       {stat.icon}
                     </motion.div>
-                    <div className={`text-2xl font-extrabold bg-gradient-to-r ${stat.gradient} bg-clip-text text-transparent mb-1`}>
+                    <div className={`text-lg sm:text-xl lg:text-2xl font-extrabold bg-gradient-to-r ${stat.gradient} bg-clip-text text-transparent mb-0.5 sm:mb-1`}>
                       {stat.value}
                     </div>
-                    <div className="text-xs text-gray-300 font-semibold">{stat.label}</div>
+                    <div className="text-[10px] sm:text-xs text-gray-300 font-semibold leading-tight">{stat.label}</div>
                   </div>
                   {/* Shine effect */}
                   <motion.div
@@ -213,12 +234,12 @@ const Hero = () => {
             </motion.div>
           </motion.div>
 
-          {/* Right Image */}
+          {/* Right Image - Desktop Only */}
           <motion.div
             initial={{ opacity: 0, x: 50, scale: 0.9 }}
             animate={{ opacity: 1, x: 0, scale: 1 }}
             transition={{ duration: 0.8, delay: 0.3, type: "spring", stiffness: 100 }}
-            className="relative lg:block hidden"
+            className="relative hidden lg:block"
           >
             <div className="relative z-10">
               {/* Glow effect behind image */}
@@ -258,18 +279,18 @@ const Hero = () => {
                   repeat: Infinity,
                   ease: "easeInOut"
                 }}
-                className="absolute -top-4 -left-4 bg-gradient-to-br from-yellow-400 to-orange-500 rounded-xl p-3 shadow-2xl border-2 border-yellow-300/50 backdrop-blur-sm"
+                className="absolute -top-2 -left-2 sm:-top-4 sm:-left-4 bg-gradient-to-br from-yellow-400 to-orange-500 rounded-lg sm:rounded-xl p-2 sm:p-3 shadow-2xl border-2 border-yellow-300/50 backdrop-blur-sm hidden sm:block"
                 whileHover={{ scale: 1.1, rotate: 5 }}
               >
                 <motion.div 
-                  className="text-2xl mb-1"
+                  className="text-xl sm:text-2xl mb-0.5 sm:mb-1"
                   animate={{ rotate: [0, 360] }}
                   transition={{ duration: 20, repeat: Infinity, ease: "linear" }}
                 >
                   🏆
                 </motion.div>
-                <div className="text-xs font-bold text-white">Level Up</div>
-                <div className="text-[10px] text-yellow-100">Earn Rewards</div>
+                <div className="text-[10px] sm:text-xs font-bold text-white">Level Up</div>
+                <div className="text-[8px] sm:text-[10px] text-yellow-100">Earn Rewards</div>
                 {/* Glow effect */}
                 <motion.div
                   className="absolute inset-0 bg-gradient-to-br from-yellow-400/50 to-orange-500/50 rounded-xl blur-xl -z-10"
@@ -289,18 +310,18 @@ const Hero = () => {
                   ease: "easeInOut",
                   delay: 1.5
                 }}
-                className="absolute -bottom-4 -right-4 bg-gradient-to-br from-emerald-400 to-teal-500 rounded-xl p-3 shadow-2xl border-2 border-emerald-300/50 backdrop-blur-sm"
+                className="absolute -bottom-2 -right-2 sm:-bottom-4 sm:-right-4 bg-gradient-to-br from-emerald-400 to-teal-500 rounded-lg sm:rounded-xl p-2 sm:p-3 shadow-2xl border-2 border-emerald-300/50 backdrop-blur-sm hidden sm:block"
                 whileHover={{ scale: 1.1, rotate: -5 }}
               >
                 <motion.div 
-                  className="text-2xl mb-1"
+                  className="text-xl sm:text-2xl mb-0.5 sm:mb-1"
                   animate={{ scale: [1, 1.2, 1] }}
                   transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
                 >
                   💰
                 </motion.div>
-                <div className="text-xs font-bold text-white">Earn Coins</div>
-                <div className="text-[10px] text-emerald-100">Shop Products</div>
+                <div className="text-[10px] sm:text-xs font-bold text-white">Earn Coins</div>
+                <div className="text-[8px] sm:text-[10px] text-emerald-100">Shop Products</div>
                 {/* Glow effect */}
                 <motion.div
                   className="absolute inset-0 bg-gradient-to-br from-emerald-400/50 to-teal-500/50 rounded-xl blur-xl -z-10"

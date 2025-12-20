@@ -135,11 +135,11 @@ const LevelsBadges = () => {
   }
 
   return (
-    <section id="levels-badges" className="py-24 bg-gradient-to-br from-gray-50 via-white to-green-50 relative overflow-visible">
+    <section id="levels-badges" className="py-12 sm:py-16 lg:py-24 bg-gradient-to-br from-gray-50 via-white to-green-50 relative overflow-visible">
       {/* Decorative background elements */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
-        <div className="absolute top-0 right-0 w-96 h-96 bg-primary/5 rounded-full blur-3xl"></div>
-        <div className="absolute bottom-0 left-0 w-96 h-96 bg-emerald-300/10 rounded-full blur-3xl"></div>
+        <div className="absolute top-0 right-0 w-48 h-48 sm:w-72 sm:h-72 lg:w-96 lg:h-96 bg-primary/5 rounded-full blur-3xl"></div>
+        <div className="absolute bottom-0 left-0 w-48 h-48 sm:w-72 sm:h-72 lg:w-96 lg:h-96 bg-emerald-300/10 rounded-full blur-3xl"></div>
       </div>
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
@@ -149,7 +149,7 @@ const LevelsBadges = () => {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.6 }}
-          className="text-center mb-16"
+          className="text-center mb-8 sm:mb-12 lg:mb-16"
         >
           <motion.div
             initial={{ scale: 0.9 }}
@@ -157,21 +157,21 @@ const LevelsBadges = () => {
             viewport={{ once: true }}
             className="inline-block mb-6"
           >
-            <span className="inline-flex items-center px-6 py-3 rounded-full bg-gradient-to-r from-primary to-emerald-600 text-white text-sm font-bold shadow-lg">
+            <span className="inline-flex items-center px-4 py-2 sm:px-6 sm:py-3 rounded-full bg-gradient-to-r from-primary to-emerald-600 text-white text-xs sm:text-sm font-bold shadow-lg">
               🏆 Level System & Badges
             </span>
           </motion.div>
-          <h2 className="text-5xl font-bold text-gray-900 mb-4 tracking-tight">
+          <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold text-gray-900 mb-3 sm:mb-4 tracking-tight px-2">
             Level Up Your <span className="text-primary">Recycling Journey</span>
           </h2>
-          <p className="text-xl text-gray-600 max-w-3xl mx-auto">
+          <p className="text-sm sm:text-base lg:text-xl text-gray-600 max-w-3xl mx-auto px-4 sm:px-0">
             Progress through 5 exciting levels, unlock exclusive badges, and earn rewards as you make a positive environmental impact
           </p>
         </motion.div>
 
         {/* Levels Grid */}
         <motion.div
-          className="grid md:grid-cols-2 lg:grid-cols-5 gap-6 lg:gap-4"
+          className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-4 sm:gap-5 lg:gap-4"
           variants={containerVariants}
           initial="hidden"
           whileInView="visible"
@@ -181,18 +181,18 @@ const LevelsBadges = () => {
             <motion.div
               key={index}
               variants={itemVariants}
-              whileHover={{ scale: 1.08, y: -15 }}
-              className={`group relative ${level.bgColor} rounded-2xl p-8 border-2 ${level.borderColor} hover:shadow-2xl transition-all duration-300 transform hover:border-primary overflow-visible`}
+              whileHover={{ scale: 1.03, y: -5 }}
+              className={`group relative ${level.bgColor} rounded-xl sm:rounded-2xl p-4 sm:p-5 md:p-6 lg:p-8 border-2 ${level.borderColor} hover:shadow-2xl transition-all duration-300 transform hover:border-primary overflow-visible`}
             >
               {/* Special Badge */}
               {level.special && (
-                <div className="absolute -top-3 -right-3 bg-primary text-white text-xs font-bold px-3 py-1 rounded-full shadow-lg z-10">
+                <div className="absolute -top-2 -right-2 sm:-top-3 sm:-right-3 bg-primary text-white text-[10px] sm:text-xs font-bold px-2 py-0.5 sm:px-3 sm:py-1 rounded-full shadow-lg z-10">
                   {level.special}
                 </div>
               )}
 
               {/* Level Badge Image - Large and Prominent */}
-              <div className="text-center mb-4 relative">
+              <div className="text-center mb-3 sm:mb-4 relative">
                 <motion.div
                   whileHover={{ scale: 1.15, rotate: 5 }}
                   transition={{ type: "spring", stiffness: 300 }}
@@ -218,7 +218,7 @@ const LevelsBadges = () => {
                   <motion.img 
                     src={level.levelBadge} 
                     alt={`${level.name} Level Badge`}
-                    className="relative z-10 w-36 h-36 object-contain drop-shadow-2xl"
+                    className="relative z-10 w-20 h-20 sm:w-28 sm:h-28 md:w-32 md:h-32 lg:w-36 lg:h-36 object-contain drop-shadow-2xl"
                     whileHover={{ 
                       scale: 1.2,
                       rotate: [0, -5, 5, -5, 0],
@@ -231,14 +231,14 @@ const LevelsBadges = () => {
                   
                   {/* Achievement Badge Overlay - Smaller badge */}
                   <motion.div
-                    className="absolute -bottom-3 -right-3 z-20"
+                    className="absolute -bottom-2 -right-2 sm:-bottom-3 sm:-right-3 z-20"
                     whileHover={{ scale: 1.3, rotate: 20 }}
                     transition={{ type: "spring", stiffness: 400 }}
                   >
                     <img
                       src={level.achievementBadge}
                       alt={`${level.badgeName} Achievement Badge`}
-                      className="w-20 h-20 object-contain drop-shadow-xl bg-white rounded-full p-1 border-2 border-primary"
+                      className="w-12 h-12 sm:w-14 sm:h-14 md:w-16 md:h-16 lg:w-20 lg:h-20 object-contain drop-shadow-xl bg-white rounded-full p-0.5 sm:p-1 border-2 border-primary"
                     />
                   </motion.div>
                   
@@ -247,48 +247,48 @@ const LevelsBadges = () => {
                 </motion.div>
                 
                 {/* Level Name Badge */}
-                <div className={`mt-4 inline-block px-4 py-2 rounded-full bg-gradient-to-r ${level.color} text-white font-bold text-lg shadow-lg transform group-hover:scale-105 transition-transform`}>
+                <div className={`mt-2 sm:mt-4 inline-block px-3 py-1 sm:px-4 sm:py-2 rounded-full bg-gradient-to-r ${level.color} text-white font-bold text-sm sm:text-base lg:text-lg shadow-lg transform group-hover:scale-105 transition-transform`}>
                   {level.name}
                 </div>
               </div>
 
               {/* Badge Name */}
-              <h3 className={`text-xl font-bold ${level.textColor} text-center mb-2`}>
+              <h3 className={`text-base sm:text-lg lg:text-xl font-bold ${level.textColor} text-center mb-1 sm:mb-2`}>
                 {level.badgeName}
               </h3>
 
               {/* GP Range */}
-              <div className="text-center mb-4">
-                <div className="inline-flex items-center space-x-2 bg-white rounded-lg px-3 py-1.5 shadow-sm">
-                  <svg className="w-5 h-5 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <div className="text-center mb-2 sm:mb-4">
+                <div className="inline-flex items-center space-x-1.5 sm:space-x-2 bg-white rounded-lg px-2 py-1 sm:px-3 sm:py-1.5 shadow-sm">
+                  <svg className="w-4 h-4 sm:w-5 sm:h-5 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
                   </svg>
-                  <span className="text-sm font-semibold text-gray-700">{level.gpRange}</span>
+                  <span className="text-xs sm:text-sm font-semibold text-gray-700">{level.gpRange}</span>
                 </div>
               </div>
 
               {/* Coins Reward */}
-              <div className="text-center mb-4">
-                <div className="inline-flex items-center space-x-2 bg-gradient-to-r from-yellow-400 to-orange-500 text-white rounded-lg px-3 py-1.5 shadow-md">
-                  <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <div className="text-center mb-2 sm:mb-4">
+                <div className="inline-flex items-center space-x-1.5 sm:space-x-2 bg-gradient-to-r from-yellow-400 to-orange-500 text-white rounded-lg px-2 py-1 sm:px-3 sm:py-1.5 shadow-md">
+                  <svg className="w-4 h-4 sm:w-5 sm:h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
                   </svg>
-                  <span className="text-sm font-bold">{level.coinsReward}</span>
+                  <span className="text-xs sm:text-sm font-bold">{level.coinsReward}</span>
                 </div>
               </div>
 
               {/* Description */}
-              <p className="text-sm text-gray-600 text-center mb-4 leading-relaxed">
+              <p className="text-xs sm:text-sm text-gray-600 text-center mb-2 sm:mb-4 leading-relaxed">
                 {level.description}
               </p>
 
               {/* Requirements */}
-              <div className="space-y-2">
-                <p className="text-xs font-semibold text-gray-500 uppercase tracking-wide mb-2">Requirements:</p>
-                <ul className="space-y-1.5">
+              <div className="space-y-1 sm:space-y-2">
+                <p className="text-[10px] sm:text-xs font-semibold text-gray-500 uppercase tracking-wide mb-1 sm:mb-2">Requirements:</p>
+                <ul className="space-y-1 sm:space-y-1.5">
                   {level.requirements.map((req, idx) => (
-                    <li key={idx} className="flex items-start text-xs text-gray-600">
-                      <svg className={`w-4 h-4 ${level.textColor} mr-2 flex-shrink-0 mt-0.5`} fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <li key={idx} className="flex items-start text-[10px] sm:text-xs text-gray-600">
+                      <svg className={`w-3 h-3 sm:w-4 sm:h-4 ${level.textColor} mr-1.5 sm:mr-2 flex-shrink-0 mt-0.5`} fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
                       </svg>
                       <span>{req}</span>
@@ -309,16 +309,16 @@ const LevelsBadges = () => {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ delay: 0.5 }}
-          className="mt-16 bg-white rounded-2xl p-8 shadow-xl border-2 border-primary/20"
+          className="mt-8 sm:mt-12 lg:mt-16 bg-white rounded-xl sm:rounded-2xl p-4 sm:p-6 lg:p-8 shadow-xl border-2 border-primary/20"
         >
-          <div className="flex items-center justify-between mb-8">
-            <h3 className="text-2xl font-bold text-gray-900">
+          <div className="flex flex-col gap-4 mb-6 sm:mb-8">
+            <h3 className="text-lg sm:text-xl lg:text-2xl font-bold text-gray-900 text-center">
               Level Progression Path
             </h3>
             
             {/* Toggle Switch */}
-            <div className="flex items-center space-x-4">
-              <span className={`text-sm font-semibold transition-colors duration-300 ${!showAchievementBadges ? 'text-primary' : 'text-gray-400'}`}>
+            <div className="flex items-center justify-center space-x-3 sm:space-x-4">
+              <span className={`text-xs sm:text-sm font-semibold transition-colors duration-300 whitespace-nowrap ${!showAchievementBadges ? 'text-primary' : 'text-gray-400'}`}>
                 Level Badges
               </span>
               <button
@@ -326,14 +326,14 @@ const LevelsBadges = () => {
                 role="switch"
                 aria-checked={showAchievementBadges}
                 onClick={() => setShowAchievementBadges(!showAchievementBadges)}
-                className={`relative inline-flex h-8 w-16 items-center rounded-full transition-colors duration-300 focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2 cursor-pointer ${
+                className={`relative inline-flex h-7 w-14 sm:h-8 sm:w-16 items-center rounded-full transition-colors duration-300 focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2 cursor-pointer ${
                   showAchievementBadges ? 'bg-primary' : 'bg-gray-300'
                 }`}
               >
                 <motion.span
-                  className="inline-block h-6 w-6 transform rounded-full bg-white shadow-lg"
-                  animate={{
-                    x: showAchievementBadges ? 36 : 4
+                  className="absolute inline-block h-5 w-5 sm:h-6 sm:w-6 transform rounded-full bg-white shadow-lg"
+                  style={{
+                    left: showAchievementBadges ? 'calc(100% - 1.5rem)' : '0.25rem'
                   }}
                   transition={{ 
                     type: "spring", 
@@ -343,55 +343,57 @@ const LevelsBadges = () => {
                   }}
                 />
               </button>
-              <span className={`text-sm font-semibold transition-colors duration-300 ${showAchievementBadges ? 'text-primary' : 'text-gray-400'}`}>
+              <span className={`text-xs sm:text-sm font-semibold transition-colors duration-300 whitespace-nowrap ${showAchievementBadges ? 'text-primary' : 'text-gray-400'}`}>
                 Achievement Badges
               </span>
             </div>
           </div>
-          <div className="flex items-center justify-between relative">
-            {/* Static Background Line - Full width connecting all badges */}
-            <div className="absolute top-1/2 left-0 right-0 h-2 bg-gray-200 rounded-full transform -translate-y-1/2 z-0"></div>
-            
-            {/* Animated Progress Line - Connects from first to last badge */}
-            <motion.div
-              key={`line-${showAchievementBadges}`}
-              className="absolute top-1/2 left-0 h-2 bg-gradient-to-r from-amber-600 via-gray-400 via-yellow-400 via-slate-300 to-cyan-400 rounded-full transform -translate-y-1/2 z-1"
-              initial={{ width: 0 }}
-              animate={{ width: "100%" }}
-              transition={{ duration: 3, ease: "easeInOut" }}
-            />
-            
-            {/* Animated Progress Dot - Travels from start to end */}
-            <motion.div
-              key={`dot-${showAchievementBadges}`}
-              className="absolute top-1/2 h-4 w-4 bg-primary rounded-full transform -translate-y-1/2 z-20 shadow-lg"
-              initial={{ left: "0%" }}
-              animate={{ left: "100%" }}
-              transition={{ duration: 3, ease: "easeInOut" }}
-              style={{ transform: 'translate(-50%, -50%)' }}
-            />
-            
-            {levels.map((level, index) => {
-              // Calculate delay for each badge animation (staggered)
-              const badgeDelay = (index * 0.6) + 0.2;
-              const badgeDuration = 0.5;
+          <div className="relative overflow-x-auto pb-4 sm:pb-0 min-h-[200px] sm:min-h-[220px] md:min-h-[250px] scrollbar-hide -mx-4 sm:mx-0">
+            <div className="flex items-center justify-between relative w-full min-w-[500px] sm:min-w-full px-4 sm:px-2 md:px-0">
+              {/* Static Background Line - From first badge center to last badge center */}
+              <div className="absolute top-1/2 left-[10%] right-[10%] h-1 sm:h-1.5 md:h-2 bg-gray-200 rounded-full transform -translate-y-1/2 z-0"></div>
               
-              return (
-                <motion.div 
-                  key={`badge-container-${showAchievementBadges}-${index}`}
-                  className="relative z-10 flex flex-col items-center"
-                  initial={{ scale: 0.8, opacity: 0.5 }}
-                  animate={{ 
-                    scale: 1,
-                    opacity: 1
-                  }}
-                  transition={{ 
-                    delay: badgeDelay,
-                    duration: badgeDuration,
-                    ease: "easeOut"
-                  }}
-                  whileHover={{ scale: 1.15 }}
-                >
+              {/* Animated Progress Line - Connects from first badge center to last badge center */}
+              <motion.div
+                key={`line-${showAchievementBadges}`}
+                className="absolute top-1/2 left-[10%] h-1 sm:h-1.5 md:h-2 bg-gradient-to-r from-amber-600 via-gray-400 via-yellow-400 via-slate-300 to-cyan-400 rounded-full transform -translate-y-1/2 z-1"
+                initial={{ width: 0 }}
+                animate={{ width: "80%" }}
+                transition={{ duration: 3, ease: "easeInOut" }}
+              />
+              
+              {/* Animated Progress Dot - Travels from first badge center to last badge center */}
+              <motion.div
+                key={`dot-${showAchievementBadges}`}
+                className="absolute top-1/2 h-2.5 w-2.5 sm:h-3 sm:w-3 md:h-4 md:w-4 bg-primary rounded-full transform -translate-y-1/2 z-20 shadow-lg"
+                initial={{ left: "10%" }}
+                animate={{ left: "90%" }}
+                transition={{ duration: 3, ease: "easeInOut" }}
+                style={{ transform: 'translate(-50%, -50%)' }}
+              />
+              
+              {levels.map((level, index) => {
+                // Calculate delay for each badge animation (staggered)
+                const badgeDelay = (index * 0.6) + 0.2;
+                const badgeDuration = 0.5;
+                
+                return (
+                  <motion.div 
+                    key={`badge-container-${showAchievementBadges}-${index}`}
+                    className="relative z-10 flex flex-col items-center flex-shrink-0"
+                    initial={{ scale: 0.8, opacity: 0.5 }}
+                    animate={{ 
+                      scale: 1,
+                      opacity: 1
+                    }}
+                    transition={{ 
+                      delay: badgeDelay,
+                      duration: badgeDuration,
+                      ease: "easeOut"
+                    }}
+                    whileHover={{ scale: 1.1 }}
+                    style={{ width: '20%', minWidth: '80px' }}
+                  >
                   {/* Glow effect when line reaches */}
                   <motion.div
                     key={`glow-${showAchievementBadges}-${index}`}
@@ -408,16 +410,23 @@ const LevelsBadges = () => {
                       repeat: 1,
                       repeatType: "reverse"
                     }}
-                    style={{ width: '120px', height: '120px', margin: '-40px' }}
+                    style={{ 
+                      width: '80px', 
+                      height: '80px',
+                      margin: '-30px auto',
+                      top: '50%',
+                      left: '50%',
+                      transform: 'translate(-50%, -50%)'
+                    }}
                   />
                   
                   {/* Badge Image - Larger */}
-                  <div className="relative">
+                  <div className="relative flex items-center justify-center">
                     <motion.img 
                       key={`${showAchievementBadges ? 'achievement' : 'level'}-${index}`}
                       src={showAchievementBadges ? level.achievementBadge : level.levelBadge} 
                       alt={showAchievementBadges ? `${level.badgeName} Achievement Badge` : `${level.name} Level Badge`}
-                      className="w-32 h-32 md:w-40 md:h-40 object-contain drop-shadow-2xl"
+                      className="w-16 h-16 sm:w-20 sm:h-20 md:w-28 md:h-28 lg:w-36 lg:h-36 xl:w-40 xl:h-40 object-contain drop-shadow-2xl"
                       initial={{ scale: 0.8, opacity: 0, rotate: -180 }}
                       animate={{ 
                         scale: 1,
@@ -449,7 +458,7 @@ const LevelsBadges = () => {
                     {/* Pulse ring when line reaches */}
                     <motion.div
                       key={`ring-${showAchievementBadges}-${index}`}
-                      className={`absolute inset-0 border-4 border-primary rounded-full`}
+                      className={`absolute inset-0 border-2 sm:border-3 md:border-4 border-primary rounded-full`}
                       initial={{ scale: 1, opacity: 0 }}
                       animate={{ 
                         scale: [1, 1.5],
@@ -460,30 +469,31 @@ const LevelsBadges = () => {
                         duration: badgeDuration + 0.3,
                         ease: "easeOut"
                       }}
-                      style={{ margin: '-8px' }}
+                      style={{ margin: '-4px' }}
                     />
                   </div>
                   
                   {/* Level Info */}
-                  <div className="text-center mt-4">
-                    <p className="text-sm font-bold text-gray-900">
+                  <div className="text-center mt-2 sm:mt-3 md:mt-4 w-full px-1">
+                    <p className="text-[11px] sm:text-xs md:text-sm font-bold text-gray-900 break-words">
                       {showAchievementBadges ? level.badgeName : level.name}
                     </p>
                     {!showAchievementBadges && (
                       <>
-                        <p className="text-xs text-gray-600 mt-1">{level.gpRange}</p>
-                        <div className={`inline-block mt-2 px-3 py-1 rounded-full bg-gradient-to-r ${level.color} text-white text-xs font-semibold`}>
+                        <p className="text-[9px] sm:text-[10px] md:text-xs text-gray-600 mt-0.5 sm:mt-1">{level.gpRange}</p>
+                        <div className={`inline-block mt-1 sm:mt-1.5 md:mt-2 px-1.5 py-0.5 sm:px-2 sm:py-0.5 md:px-3 md:py-1 rounded-full bg-gradient-to-r ${level.color} text-white text-[9px] sm:text-[10px] md:text-xs font-semibold`}>
                           {level.coinsReward}
                         </div>
                       </>
                     )}
                     {showAchievementBadges && (
-                      <p className="text-xs text-gray-600 mt-1">{level.name} Level</p>
+                      <p className="text-[9px] sm:text-[10px] md:text-xs text-gray-600 mt-0.5 sm:mt-1">{level.name} Level</p>
                     )}
                   </div>
                 </motion.div>
               );
             })}
+            </div>
           </div>
         </motion.div>
       </div>
