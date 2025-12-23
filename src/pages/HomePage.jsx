@@ -8,6 +8,7 @@ import LevelsBadges from '../components/LevelsBadges'
 import Leaderboard from '../components/Leaderboard'
 import Partners from '../components/Partners'
 import Contact from '../components/Contact'
+import HelpCenter from '../components/HelpCenter'
 import Footer from '../components/Footer'
 import ScrollToTop from '../components/ScrollToTop'
 
@@ -36,6 +37,7 @@ const HomePage = () => {
       <LevelsBadges />
       <Leaderboard />
       <Partners />
+      <HelpCenter />
       <Contact />
       <Footer />
       <ScrollToTop />

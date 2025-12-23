@@ -5,6 +5,7 @@ import logo from '../assets/logo_scrapdig_web.png'
 const Navbar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false)
   const [activeLink, setActiveLink] = useState('')
+  const [isMoreMenuOpen, setIsMoreMenuOpen] = useState(false)
   const location = useLocation()
   const navigate = useNavigate()
 
@@ -47,7 +48,7 @@ const Navbar = () => {
     }
 
     const handleScroll = () => {
-      const sections = ['features', 'how-it-works', 'levels-badges', 'achievements', 'leaderboard', 'partners', 'contact']
+      const sections = ['features', 'how-it-works', 'levels-badges', 'achievements', 'leaderboard', 'partners', 'help-center', 'contact']
       const scrollPosition = window.scrollY + 100
 
       for (const section of sections) {
@@ -87,6 +88,20 @@ const Navbar = () => {
       window.removeEventListener('hashchange', handleHashChange)
     }
   }, [location.pathname])
+
+  // Close dropdown when clicking outside
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (isMoreMenuOpen && !event.target.closest('.relative')) {
+        setIsMoreMenuOpen(false)
+      }
+    }
+
+    document.addEventListener('mousedown', handleClickOutside)
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside)
+    }
+  }, [isMoreMenuOpen])
 
   return (
     <nav className="sticky top-0 z-50 backdrop-blur-md bg-gradient-to-r from-slate-900/95 via-emerald-950/95 to-slate-900/95 border-b border-emerald-500/30 shadow-lg">
@@ -170,6 +185,17 @@ const Navbar = () => {
               Partners
             </a>
             <a 
+              href="#help-center" 
+              onClick={(e) => handleSectionClick(e, 'help-center')}
+              className={`transition font-medium text-sm ${
+                activeLink === 'help-center' 
+                  ? 'text-emerald-400 font-semibold border-b-2 border-emerald-400 pb-1' 
+                  : 'text-gray-200 hover:text-emerald-400'
+              }`}
+            >
+              Help Center
+            </a>
+            <a 
               href="#contact" 
               onClick={(e) => handleSectionClick(e, 'contact')}
               className={`transition font-medium text-sm ${
@@ -180,26 +206,56 @@ const Navbar = () => {
             >
               Contact
             </a>
-            <Link 
-              to="/privacy-policy" 
-              className={`transition font-medium text-sm ${
-                activeLink === 'privacy-policy' 
-                  ? 'text-emerald-400 font-semibold border-b-2 border-emerald-400 pb-1' 
-                  : 'text-gray-200 hover:text-emerald-400'
-              }`}
-            >
-              Privacy Policy
-            </Link>
-            <Link 
-              to="/refund-cancellation-policy" 
-              className={`transition font-medium text-sm ${
-                activeLink === 'refund-cancellation-policy' 
-                  ? 'text-emerald-400 font-semibold border-b-2 border-emerald-400 pb-1' 
-                  : 'text-gray-200 hover:text-emerald-400'
-              }`}
-            >
-              Refund Policy
-            </Link>
+            
+            {/* More Dropdown */}
+            <div className="relative">
+              <button
+                onClick={() => setIsMoreMenuOpen(!isMoreMenuOpen)}
+                className={`transition font-medium text-sm flex items-center gap-1 ${
+                  (activeLink === 'privacy-policy' || activeLink === 'refund-cancellation-policy')
+                    ? 'text-emerald-400 font-semibold border-b-2 border-emerald-400 pb-1' 
+                    : 'text-gray-200 hover:text-emerald-400'
+                }`}
+              >
+                More
+                <svg 
+                  className={`w-4 h-4 transition-transform duration-200 ${isMoreMenuOpen ? 'rotate-180' : ''}`} 
+                  fill="none" 
+                  stroke="currentColor" 
+                  viewBox="0 0 24 24"
+                >
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+                </svg>
+              </button>
+              
+              {/* Dropdown Menu */}
+              {isMoreMenuOpen && (
+                <div className="absolute right-0 mt-2 w-48 bg-slate-800/95 backdrop-blur-md border border-emerald-500/30 rounded-lg shadow-xl py-2 z-50">
+                  <Link 
+                    to="/privacy-policy" 
+                    onClick={() => setIsMoreMenuOpen(false)}
+                    className={`block px-4 py-2 text-sm transition ${
+                      activeLink === 'privacy-policy'
+                        ? 'bg-emerald-500/20 text-emerald-400 font-semibold' 
+                        : 'text-gray-200 hover:bg-emerald-500/10 hover:text-emerald-400'
+                    }`}
+                  >
+                    Privacy Policy
+                  </Link>
+                  <Link 
+                    to="/refund-cancellation-policy" 
+                    onClick={() => setIsMoreMenuOpen(false)}
+                    className={`block px-4 py-2 text-sm transition ${
+                      activeLink === 'refund-cancellation-policy'
+                        ? 'bg-emerald-500/20 text-emerald-400 font-semibold' 
+                        : 'text-gray-200 hover:bg-emerald-500/10 hover:text-emerald-400'
+                    }`}
+                  >
+                    Refund Policy
+                  </Link>
+                </div>
+              )}
+            </div>
           </div>
 
           {/* Mobile Menu Button */}
@@ -292,6 +348,20 @@ const Navbar = () => {
               Partners
             </a>
             <a 
+              href="#help-center" 
+              onClick={(e) => {
+                handleSectionClick(e, 'help-center')
+                setIsMenuOpen(false)
+              }}
+              className={`block px-4 py-3 transition rounded-lg font-medium ${
+                activeLink === 'help-center' 
+                  ? 'bg-emerald-500/20 text-emerald-400 font-semibold' 
+                  : 'text-gray-200 hover:bg-emerald-500/10 hover:text-emerald-400'
+              }`}
+            >
+              Help Center
+            </a>
+            <a 
               href="#contact" 
               onClick={(e) => {
                 handleSectionClick(e, 'contact')
@@ -305,6 +375,7 @@ const Navbar = () => {
             >
               Contact
             </a>
+            <div className="border-t border-emerald-500/20 my-2"></div>
             <Link 
               to="/privacy-policy" 
               className={`block px-4 py-3 transition rounded-lg font-medium ${

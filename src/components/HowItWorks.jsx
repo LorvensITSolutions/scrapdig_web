@@ -103,14 +103,25 @@ const HowItWorks = () => {
     }
   ]
 
+  const totalSlides = Math.ceil(steps.length / 4)
+
+  // Navigation functions
+  const goToPrevious = () => {
+    setCurrentSlide((prev) => (prev - 1 + totalSlides) % totalSlides)
+  }
+
+  const goToNext = () => {
+    setCurrentSlide((prev) => (prev + 1) % totalSlides)
+  }
+
   // Auto-scroll carousel - slower speed
   useEffect(() => {
     const interval = setInterval(() => {
-      setCurrentSlide((prev) => (prev + 1) % Math.ceil(steps.length / 4))
+      setCurrentSlide((prev) => (prev + 1) % totalSlides)
     }, 8000) // Change slide every 8 seconds (slower)
 
     return () => clearInterval(interval)
-  }, [steps.length])
+  }, [totalSlides])
 
   return (
     <section id="how-it-works" className="py-24 bg-gradient-to-br from-gray-900 via-emerald-950 to-gray-900 relative overflow-hidden">
@@ -140,6 +151,46 @@ const HowItWorks = () => {
 
         {/* Carousel Container */}
         <div className="relative">
+          {/* Left Navigation Arrow */}
+          <motion.button
+            onClick={goToPrevious}
+            className="absolute left-0 top-1/2 -translate-y-1/2 -translate-x-4 sm:-translate-x-8 md:-translate-x-12 z-20 bg-white/10 backdrop-blur-md hover:bg-white/20 rounded-full p-3 sm:p-4 shadow-lg border border-white/20 transition-all duration-300 group"
+            whileHover={{ scale: 1.1, x: -5 }}
+            whileTap={{ scale: 0.95 }}
+            initial={{ opacity: 0, x: -20 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.5 }}
+          >
+            <svg 
+              className="w-6 h-6 sm:w-8 sm:h-8 text-white group-hover:text-purple-300 transition-colors" 
+              fill="none" 
+              stroke="currentColor" 
+              viewBox="0 0 24 24"
+            >
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M15 19l-7-7 7-7" />
+            </svg>
+          </motion.button>
+
+          {/* Right Navigation Arrow */}
+          <motion.button
+            onClick={goToNext}
+            className="absolute right-0 top-1/2 -translate-y-1/2 translate-x-4 sm:translate-x-8 md:translate-x-12 z-20 bg-white/10 backdrop-blur-md hover:bg-white/20 rounded-full p-3 sm:p-4 shadow-lg border border-white/20 transition-all duration-300 group"
+            whileHover={{ scale: 1.1, x: 5 }}
+            whileTap={{ scale: 0.95 }}
+            initial={{ opacity: 0, x: 20 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.5 }}
+          >
+            <svg 
+              className="w-6 h-6 sm:w-8 sm:h-8 text-white group-hover:text-purple-300 transition-colors" 
+              fill="none" 
+              stroke="currentColor" 
+              viewBox="0 0 24 24"
+            >
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M9 5l7 7-7 7" />
+            </svg>
+          </motion.button>
+
           <div className="overflow-hidden rounded-3xl">
             <div 
               className="flex transition-transform duration-1000 ease-in-out"
