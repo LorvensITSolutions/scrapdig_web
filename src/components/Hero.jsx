@@ -1,8 +1,10 @@
-import React from 'react'
-import { motion } from 'framer-motion'
+import React, { useState } from 'react'
+import { motion, AnimatePresence } from 'framer-motion'
 import heroImage from '../assets/web_2.png'
+import ecoCoinImage from '../assets/eco_coin_scrapdig.png'
 
 const Hero = () => {
+  const [isCoinModalOpen, setIsCoinModalOpen] = useState(false)
   const stats = [
     { value: '5', label: 'Level System', icon: '🏆', gradient: 'from-yellow-400 to-orange-500', bg: 'from-yellow-50 to-orange-50' },
     { value: '100%', label: 'Eco-Friendly', icon: '🌱', gradient: 'from-green-400 to-emerald-500', bg: 'from-green-50 to-emerald-50' },
@@ -203,25 +205,59 @@ const Hero = () => {
                     className={`absolute inset-0 bg-gradient-to-br ${stat.bg} opacity-0 group-hover:opacity-20 transition-opacity duration-300`}
                   />
                   <div className="relative z-10">
-                    <motion.div 
-                      className="text-xl sm:text-2xl mb-0.5 sm:mb-1"
-                      animate={{ 
-                        rotate: [0, 10, -10, 0],
-                        scale: [1, 1.1, 1]
-                      }}
-                      transition={{ 
-                        duration: 3, 
-                        repeat: Infinity, 
-                        repeatDelay: 2,
-                        ease: "easeInOut"
-                      }}
-                    >
-                      {stat.icon}
-                    </motion.div>
-                    <div className={`text-lg sm:text-xl lg:text-2xl font-extrabold bg-gradient-to-r ${stat.gradient} bg-clip-text text-transparent mb-0.5 sm:mb-1`}>
-                      {stat.value}
-                    </div>
-                    <div className="text-[10px] sm:text-xs text-gray-300 font-semibold leading-tight">{stat.label}</div>
+                    {stat.label === 'Rewards' ? (
+                      <>
+                        <motion.div 
+                          className="flex items-center justify-center lg:justify-start mb-0.5 sm:mb-1 cursor-pointer"
+                          onClick={() => setIsCoinModalOpen(true)}
+                          whileHover={{ scale: 1.1 }}
+                          whileTap={{ scale: 0.95 }}
+                        >
+                          <motion.img
+                            src={ecoCoinImage}
+                            alt="Eco Coin"
+                            className="w-6 h-6 sm:w-7 sm:h-7 lg:w-8 lg:h-8 object-contain drop-shadow-lg"
+                            animate={{ 
+                              rotate: [0, 10, -10, 0],
+                              scale: [1, 1.05, 1]
+                            }}
+                            transition={{ 
+                              duration: 3, 
+                              repeat: Infinity, 
+                              repeatDelay: 1,
+                              ease: "easeInOut"
+                            }}
+                          />
+                        </motion.div>
+                        <div className={`text-lg sm:text-xl lg:text-2xl font-extrabold bg-gradient-to-r ${stat.gradient} bg-clip-text text-transparent mb-0.5 sm:mb-1`}>
+                          {stat.value}
+                        </div>
+                        <div className="text-[10px] sm:text-xs text-gray-300 font-semibold leading-tight">{stat.label}</div>
+                        <div className="text-[7px] sm:text-[8px] text-emerald-400 font-medium leading-tight mt-0.5">Click coin to view</div>
+                      </>
+                    ) : (
+                      <>
+                        <motion.div 
+                          className="text-xl sm:text-2xl mb-0.5 sm:mb-1"
+                          animate={{ 
+                            rotate: [0, 10, -10, 0],
+                            scale: [1, 1.1, 1]
+                          }}
+                          transition={{ 
+                            duration: 3, 
+                            repeat: Infinity, 
+                            repeatDelay: 2,
+                            ease: "easeInOut"
+                          }}
+                        >
+                          {stat.icon}
+                        </motion.div>
+                        <div className={`text-lg sm:text-xl lg:text-2xl font-extrabold bg-gradient-to-r ${stat.gradient} bg-clip-text text-transparent mb-0.5 sm:mb-1`}>
+                          {stat.value}
+                        </div>
+                        <div className="text-[10px] sm:text-xs text-gray-300 font-semibold leading-tight">{stat.label}</div>
+                      </>
+                    )}
                   </div>
                   {/* Shine effect */}
                   <motion.div
@@ -333,6 +369,88 @@ const Hero = () => {
           </motion.div>
         </div>
       </div>
+
+      {/* Eco Coin Modal */}
+      <AnimatePresence>
+        {isCoinModalOpen && (
+          <>
+            {/* Backdrop */}
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              onClick={() => setIsCoinModalOpen(false)}
+              className="fixed inset-0 bg-black/80 backdrop-blur-md z-50 flex items-center justify-center p-4"
+            >
+              {/* Modal Content */}
+              <motion.div
+                initial={{ opacity: 0, scale: 0.5, rotate: -180 }}
+                animate={{ opacity: 1, scale: 1, rotate: 0 }}
+                exit={{ opacity: 0, scale: 0.5, rotate: 180 }}
+                transition={{ type: "spring", stiffness: 200, damping: 20 }}
+                className="relative"
+                onClick={(e) => e.stopPropagation()}
+              >
+                {/* Large Coin */}
+                <motion.img
+                  src={ecoCoinImage}
+                  alt="Eco Coin - Large View"
+                  className="w-[400px] h-[400px] sm:w-[500px] sm:h-[500px] object-contain drop-shadow-2xl"
+                  animate={{
+                    scale: [1, 1.02, 1]
+                  }}
+                  transition={{
+                    scale: {
+                      duration: 3,
+                      repeat: Infinity,
+                      ease: "easeInOut"
+                    }
+                  }}
+                />
+
+                {/* Close Button */}
+                <motion.button
+                  onClick={() => setIsCoinModalOpen(false)}
+                  className="absolute -top-4 -right-4 w-12 h-12 bg-white/20 backdrop-blur-md rounded-full flex items-center justify-center text-white hover:bg-white/30 transition-colors shadow-xl border-2 border-white/30"
+                  whileHover={{ scale: 1.1, rotate: 90 }}
+                  whileTap={{ scale: 0.9 }}
+                >
+                  <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+                  </svg>
+                </motion.button>
+
+                {/* Info Text */}
+                <motion.div
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ delay: 0.3 }}
+                  className="absolute -bottom-20 left-1/2 transform -translate-x-1/2 text-center"
+                >
+                  <h3 className="text-3xl font-bold text-white mb-2">Eco Coin</h3>
+                  <p className="text-gray-300 text-base max-w-md">
+                    Earn coins by recycling scrap, complete tasks, and shop eco-friendly products in our EcoStore
+                  </p>
+                </motion.div>
+
+                {/* Glow Effect */}
+                <motion.div
+                  className="absolute inset-0 bg-gradient-to-r from-emerald-400/30 via-teal-400/30 to-emerald-400/30 rounded-full blur-3xl -z-10"
+                  animate={{
+                    scale: [1, 1.2, 1],
+                    opacity: [0.3, 0.5, 0.3]
+                  }}
+                  transition={{
+                    duration: 3,
+                    repeat: Infinity,
+                    ease: "easeInOut"
+                  }}
+                />
+              </motion.div>
+            </motion.div>
+          </>
+        )}
+      </AnimatePresence>
     </section>
   )
 }
