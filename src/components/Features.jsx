@@ -157,20 +157,20 @@ const Features = () => {
                       filter: 'drop-shadow(0 10px 30px rgba(0, 0, 0, 0.2))'
                     }}
                   >
-                    <div className="text-white">
-                      {feature.icon}
-                    </div>
+                  <div className="text-white">
+                    {feature.icon}
+                  </div>
                   </motion.div>
 
-                  {/* Title */}
+                {/* Title */}
                   <h3 className="text-xl md:text-2xl font-bold text-gray-900 mb-3 group-hover:text-transparent group-hover:bg-clip-text group-hover:bg-gradient-to-r group-hover:from-emerald-600 group-hover:to-teal-600 transition-all duration-300">
-                    {feature.title}
-                  </h3>
+                  {feature.title}
+                </h3>
 
-                  {/* Description */}
+                {/* Description */}
                   <p className="text-gray-700 text-sm md:text-base leading-relaxed flex-grow">
-                    {feature.description}
-                  </p>
+                  {feature.description}
+                </p>
 
                   {/* Arrow indicator on hover */}
                   <motion.div 

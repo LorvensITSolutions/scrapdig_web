@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import heroImage from '../assets/web_2.png'
+import heroVideo from '../assets/hero.mp4'
 import ecoCoinImage from '../assets/eco_coin_scrapdig.png'
 
 const Hero = () => {
@@ -164,21 +165,24 @@ const Hero = () => {
               </motion.a>
             </motion.div>
 
-            {/* Mobile Image - Shows after buttons on mobile */}
+            {/* Mobile Video - Shows after buttons on mobile */}
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.55 }}
-              className="relative block lg:hidden mt-6"
+              className="relative block lg:hidden mt-6 px-2 sm:px-0"
             >
               <div className="relative z-10">
                 <motion.div
                   className="relative bg-gradient-to-br from-slate-800/50 to-slate-900/50 backdrop-blur-md rounded-2xl p-2 border border-emerald-500/30 shadow-2xl"
                 >
-                  <motion.img
-                    src={heroImage} 
-                    alt="ScrapDig App - Recycle, Earn, Level Up"
-                    className="w-full h-auto rounded-2xl"
+                  <motion.video
+                    src={heroVideo}
+                    autoPlay
+                    loop
+                    muted
+                    playsInline
+                    className="w-full h-auto max-w-full rounded-2xl object-cover"
                   />
                 </motion.div>
               </div>
@@ -237,25 +241,25 @@ const Hero = () => {
                       </>
                     ) : (
                       <>
-                        <motion.div 
-                          className="text-xl sm:text-2xl mb-0.5 sm:mb-1"
-                          animate={{ 
-                            rotate: [0, 10, -10, 0],
-                            scale: [1, 1.1, 1]
-                          }}
-                          transition={{ 
-                            duration: 3, 
-                            repeat: Infinity, 
-                            repeatDelay: 2,
-                            ease: "easeInOut"
-                          }}
-                        >
-                          {stat.icon}
-                        </motion.div>
-                        <div className={`text-lg sm:text-xl lg:text-2xl font-extrabold bg-gradient-to-r ${stat.gradient} bg-clip-text text-transparent mb-0.5 sm:mb-1`}>
-                          {stat.value}
-                        </div>
-                        <div className="text-[10px] sm:text-xs text-gray-300 font-semibold leading-tight">{stat.label}</div>
+                    <motion.div 
+                      className="text-xl sm:text-2xl mb-0.5 sm:mb-1"
+                      animate={{ 
+                        rotate: [0, 10, -10, 0],
+                        scale: [1, 1.1, 1]
+                      }}
+                      transition={{ 
+                        duration: 3, 
+                        repeat: Infinity, 
+                        repeatDelay: 2,
+                        ease: "easeInOut"
+                      }}
+                    >
+                      {stat.icon}
+                    </motion.div>
+                    <div className={`text-lg sm:text-xl lg:text-2xl font-extrabold bg-gradient-to-r ${stat.gradient} bg-clip-text text-transparent mb-0.5 sm:mb-1`}>
+                      {stat.value}
+                    </div>
+                    <div className="text-[10px] sm:text-xs text-gray-300 font-semibold leading-tight">{stat.label}</div>
                       </>
                     )}
                   </div>
@@ -270,15 +274,15 @@ const Hero = () => {
             </motion.div>
           </motion.div>
 
-          {/* Right Image - Desktop Only */}
+          {/* Right Video - Desktop Only */}
           <motion.div
             initial={{ opacity: 0, x: 50, scale: 0.9 }}
             animate={{ opacity: 1, x: 0, scale: 1 }}
             transition={{ duration: 0.8, delay: 0.3, type: "spring", stiffness: 100 }}
-            className="relative hidden lg:block"
+            className="relative hidden lg:block ml-4 xl:ml-8"
           >
             <div className="relative z-10">
-              {/* Glow effect behind image */}
+              {/* Glow effect behind video */}
               <motion.div
                 className="absolute inset-0 bg-gradient-to-r from-emerald-500/30 to-teal-500/30 rounded-3xl blur-2xl"
                 animate={{
@@ -295,10 +299,13 @@ const Hero = () => {
                 className="relative bg-gradient-to-br from-slate-800/50 to-slate-900/50 backdrop-blur-md rounded-2xl p-2 border border-emerald-500/30 shadow-2xl"
                 whileHover={{ scale: 1.02 }}
               >
-                <motion.img
-        src={heroImage} 
-                  alt="ScrapDig App - Recycle, Earn, Level Up"
-                  className="w-full h-auto rounded-2xl"
+                <motion.video
+                  src={heroVideo}
+                  autoPlay
+                  loop
+                  muted
+                  playsInline
+                  className="w-full h-auto max-w-full rounded-2xl object-cover"
                   whileHover={{ scale: 1.03 }}
                   transition={{ duration: 0.3 }}
                 />
