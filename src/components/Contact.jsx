@@ -9,8 +9,8 @@ const Contact = () => {
         </svg>
       ),
       label: "Email",
-      value: "lorvensitsolutionspvtltd@gmail.com",
-      link: "mailto:lorvensitsolutionspvtltd@gmail.com",
+      value: "baluveera211221@gmail.com",
+      link: "mailto:baluveera211221@gmail.com",
       bgColor: "bg-blue-50",
       iconColor: "text-blue-600",
       borderColor: "border-blue-200"
@@ -22,8 +22,8 @@ const Contact = () => {
         </svg>
       ),
       label: "Phone",
-      value: "+91 7013814030",
-      link: "tel:+917013814030",
+      value: "+91 8143928266",
+      link: "tel:+918143928266",
       bgColor: "bg-green-50",
       iconColor: "text-green-600",
       borderColor: "border-green-200"
