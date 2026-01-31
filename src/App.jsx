@@ -3,6 +3,7 @@ import { BrowserRouter, Routes, Route } from 'react-router-dom'
 import HomePage from './pages/HomePage'
 import PrivacyPolicy from './pages/PrivacyPolicy'
 import RefundCancellationPolicy from './pages/RefundCancellationPolicy'
+import ReferralPage from './pages/ReferralPage'
 
 function App() {
   return (
@@ -11,6 +12,7 @@ function App() {
         <Route path="/" element={<HomePage />} />
         <Route path="/privacy-policy" element={<PrivacyPolicy />} />
         <Route path="/refund-cancellation-policy" element={<RefundCancellationPolicy />} />
+        <Route path="/referral" element={<ReferralPage />} />
       </Routes>
     </BrowserRouter>
   )

@@ -3,7 +3,7 @@
 // All API routes are prefixed with /api
 // Reference: https://api.lorvensit.online/
 
-export const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || 'https://api.lorvensit.online'
+export const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || 'https://api-v2.lorvensit.online'
 
 // API Endpoints - Based on actual backend routes
 // Public leaderboard endpoint (no authentication required)
