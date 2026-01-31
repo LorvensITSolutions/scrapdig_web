@@ -210,42 +210,40 @@ const ReferralPage = () => {
           </div>
         </motion.div>
 
-        {/* Download App CTA */}
         <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.8, duration: 0.6 }}
-          className="bg-gradient-to-r from-emerald-500 to-teal-500 rounded-2xl shadow-2xl p-8 text-center text-white"
-        >
-          <h2 className="text-3xl sm:text-4xl font-bold mb-4">
-            Ready to Get Started?
-          </h2>
-          <p className="text-lg sm:text-xl mb-6 text-emerald-50">
-            Download the ScrapDig app and use the referral code above to begin your journey!
-          </p>
-          <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <motion.a
-              href="https://play.google.com/store/apps/details?id=com.scrapdig.app"
-              target="_blank"
-              rel="noopener noreferrer"
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.95 }}
-              className="px-8 py-4 bg-white text-emerald-600 font-bold rounded-xl shadow-lg hover:shadow-xl transition-all"
-            >
-              📱 Download on Google Play
-            </motion.a>
-            <motion.a
-              href="https://apps.apple.com/app/scrapdig"
-              target="_blank"
-              rel="noopener noreferrer"
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.95 }}
-              className="px-8 py-4 bg-white text-emerald-600 font-bold rounded-xl shadow-lg hover:shadow-xl transition-all"
-            >
-              🍎 Download on App Store
-            </motion.a>
-          </div>
-        </motion.div>
+  initial={{ opacity: 0, y: 30 }}
+  animate={{ opacity: 1, y: 0 }}
+  transition={{ delay: 0.8, duration: 0.6 }}
+  className="bg-gradient-to-r from-emerald-500 to-teal-500 rounded-2xl shadow-2xl p-8 text-center text-white"
+>
+  <h2 className="text-3xl sm:text-4xl font-bold mb-4">
+    Ready to Get Started?
+  </h2>
+  <p className="text-lg sm:text-xl mb-6 text-emerald-50">
+    Download the ScrapDig app and use the referral code above to begin your journey!
+  </p>
+
+  <div className="flex justify-center">
+    <motion.a
+      href="https://github.com/LorvensITSolutions/scrapdig_web/releases/download/v1.0.0/ScrapDig.apk"
+      target="_blank"
+      rel="noopener noreferrer"
+      whileHover={{ scale: 1.05 }}
+      whileTap={{ scale: 0.95 }}
+      className="px-8 py-4 bg-white text-emerald-600 font-bold rounded-xl shadow-lg hover:shadow-xl transition-all flex items-center gap-2"
+    >
+      📲 Download on Play Store
+      <span className="text-[10px] bg-emerald-100 text-emerald-700 px-2 py-1 rounded-full font-semibold">
+        APK (Temporary)
+      </span>
+    </motion.a>
+  </div>
+
+  <p className="text-xs text-emerald-100 mt-4">
+    Play Store launch coming soon 🚀
+  </p>
+</motion.div>
+
       </div>
 
       <Footer />

@@ -132,30 +132,37 @@ const Hero = () => {
               transition={{ delay: 0.5 }}
               className="flex flex-col sm:flex-row gap-2 sm:gap-3 justify-center lg:justify-start px-2 sm:px-0"
             >
-              <motion.a 
-                href="/app-release.apk"
-                download="ScrapDig.apk"
-                className="group relative bg-gradient-to-r from-yellow-500 to-orange-500 text-white px-5 py-2.5 sm:px-6 sm:py-3 rounded-xl font-bold text-sm sm:text-base overflow-hidden shadow-2xl w-full sm:w-auto"
-                whileHover={{ scale: 1.05, y: -2 }}
-                whileTap={{ scale: 0.95 }}
-              >
-                <motion.div
-                  className="absolute inset-0 bg-gradient-to-r from-orange-500 to-yellow-500 opacity-0 group-hover:opacity-100 transition-opacity"
-                />
-                <span className="relative z-10 flex items-center space-x-2">
-                  <motion.svg 
-                    className="w-5 h-5" 
-                    fill="none" 
-                    stroke="currentColor" 
-                    viewBox="0 0 24 24"
-                    animate={{ y: [0, -3, 0] }}
-                    transition={{ duration: 1.5, repeat: Infinity }}
-                  >
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
-                  </motion.svg>
-                  <span>Download APK</span>
-                </span>
-              </motion.a>
+<motion.a 
+  href="https://github.com/LorvensITSolutions/scrapdig_web/releases/download/v1.0.0/ScrapDig.apk"
+  target=""
+  rel="noopener noreferrer"
+  className="group relative bg-gradient-to-r from-yellow-500 to-orange-500 text-white px-5 py-2.5 sm:px-6 sm:py-3 rounded-xl font-bold text-sm sm:text-base overflow-hidden shadow-2xl w-full sm:w-auto"
+  whileHover={{ scale: 1.05, y: -2 }}
+  whileTap={{ scale: 0.95 }}
+>
+  <motion.div
+    className="absolute inset-0 bg-gradient-to-r from-orange-500 to-yellow-500 opacity-0 group-hover:opacity-100 transition-opacity"
+  />
+  <span className="relative z-10 flex items-center space-x-2">
+    <motion.svg 
+      className="w-5 h-5" 
+      fill="none" 
+      stroke="currentColor" 
+      viewBox="0 0 24 24"
+      animate={{ y: [0, -3, 0] }}
+      transition={{ duration: 1.5, repeat: Infinity }}
+    >
+      <path
+        strokeLinecap="round"
+        strokeLinejoin="round"
+        strokeWidth={2}
+        d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"
+      />
+    </motion.svg>
+    <span>Download APK</span>
+  </span>
+</motion.a>
+
               <motion.a 
                 href="#features"
                 className="group relative bg-gradient-to-r from-emerald-500 to-teal-500 text-white px-5 py-2.5 sm:px-6 sm:py-3 rounded-xl font-bold text-sm sm:text-base overflow-hidden shadow-2xl w-full sm:w-auto"
