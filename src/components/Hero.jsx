@@ -133,7 +133,7 @@ const Hero = () => {
               className="flex flex-col sm:flex-row gap-2 sm:gap-3 justify-center lg:justify-start px-2 sm:px-0"
             >
 <motion.a 
-  href="https://github.com/LorvensITSolutions/scrapdig_web/releases/download/v1.0.0/ScrapDig.apk"
+  href="https://github.com/LorvensITSolutions/scrapdig_web/releases/download/v1.0.0/app-release.apk"
   target=""
   rel="noopener noreferrer"
   className="group relative bg-gradient-to-r from-yellow-500 to-orange-500 text-white px-5 py-2.5 sm:px-6 sm:py-3 rounded-xl font-bold text-sm sm:text-base overflow-hidden shadow-2xl w-full sm:w-auto"
