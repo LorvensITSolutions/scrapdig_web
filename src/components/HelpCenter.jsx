@@ -286,7 +286,7 @@ const HelpCenter = () => {
   const filteredCategories = faqCategories.map(category => ({
     ...category,
     questions: category.questions.filter(
-      qa => 
+      qa =>
         qa.q.toLowerCase().includes(searchQuery.toLowerCase()) ||
         qa.a.toLowerCase().includes(searchQuery.toLowerCase())
     )
@@ -459,7 +459,7 @@ const HelpCenter = () => {
               </p>
               <div className="flex flex-col sm:flex-row gap-4 justify-center">
                 <a
-                  href="#contact"
+                  href="mailto:lorvensitsolutionspvtltd@gmail.com"
                   className="inline-flex items-center justify-center px-8 py-4 bg-gradient-to-r from-emerald-500 to-teal-500 text-white font-semibold rounded-xl hover:from-emerald-600 hover:to-teal-600 transition-all duration-200 shadow-lg hover:shadow-xl hover:scale-105"
                 >
                   <svg className="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -468,7 +468,7 @@ const HelpCenter = () => {
                   Contact Support
                 </a>
                 <a
-                  href="mailto:lorvensitsolutionspvtltd@gmail.com"
+                  href="tel:+918143928266"
                   className="inline-flex items-center justify-center px-8 py-4 bg-slate-700/50 backdrop-blur-md text-white font-semibold rounded-xl hover:bg-slate-700/70 transition-all duration-200 border-2 border-emerald-500/30 hover:border-emerald-500/50 hover:scale-105"
                 >
                   <svg className="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">

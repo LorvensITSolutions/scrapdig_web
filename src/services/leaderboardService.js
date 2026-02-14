@@ -11,20 +11,25 @@ export const getTopUsers = async (limit = 10, page = 1) => {
     // The actual endpoint is /api/levels/leaderboard
     // Response format: { success: true, leaderboard: [...], userRank: ..., totalUsers: ..., pagination: {...} }
     const data = await fetchAPI(`${API_ENDPOINTS.LEADERBOARD}?limit=${limit}&page=${page}`)
-    
+
     // The backend returns: { success, leaderboard, userRank, userRankPercentage, totalUsers, pagination }
     if (data?.success && Array.isArray(data.leaderboard)) {
+      console.log("data.leaderboard", data.leaderboard)
       return data.leaderboard
     } else if (Array.isArray(data)) {
+      console.log("data", data)
       return data
     } else if (data?.users && Array.isArray(data.users)) {
+      console.log("data.users", data.users)
       return data.users
     } else if (data?.data && Array.isArray(data.data)) {
+      console.log("data.data", data.data)
       return data.data
     } else if (data?.result && Array.isArray(data.result)) {
+      console.log("data.result", data.result)
       return data.result
     }
-    
+
     // If no array found, return empty array
     console.warn('Unexpected API response format:', data)
     return []

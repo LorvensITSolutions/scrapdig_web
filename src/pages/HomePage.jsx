@@ -35,8 +35,8 @@ const HomePage = () => {
       <Features />
       <HowItWorks />
       <LevelsBadges />
-      <Leaderboard />
-      <Partners />
+      {/* <Leaderboard /> */}
+      {/* <Partners /> */}
       <HelpCenter />
       <Contact />
       <Footer />

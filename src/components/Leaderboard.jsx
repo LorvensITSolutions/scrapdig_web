@@ -186,7 +186,7 @@ const Leaderboard = () => {
               <div className="space-y-2 mb-3 sm:mb-4 text-left bg-slate-800/50 p-3 sm:p-4 rounded-lg">
                 <p className="text-gray-300 text-[10px] sm:text-xs font-semibold mb-1 sm:mb-2">Troubleshooting:</p>
                 <ul className="text-gray-400 text-[10px] sm:text-xs space-y-1 list-disc list-inside">
-                  <li>Check if your backend API is running at: <code className="text-emerald-400 break-all">https://api-v2.lorvensit.online</code></li>
+                  <li>Check if your backend API is running at: <code className="text-emerald-400 break-all">https://api.scrapdig.in</code></li>
                   <li>Verify the API endpoint: <code className="text-emerald-400">/api/levels/leaderboard</code></li>
                   <li>Note: This endpoint requires authentication. For a public website, you may need to create a public leaderboard endpoint.</li>
                   <li>Check browser console for detailed error messages</li>

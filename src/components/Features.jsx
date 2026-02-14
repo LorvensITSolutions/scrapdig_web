@@ -18,6 +18,30 @@ const Features = () => {
     {
       icon: (
         <svg className="w-10 h-10" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" />
+        </svg>
+      ),
+      title: "Educational Content",
+      description: "Discovery and Recycle info features will educate on waste management and sustainability",
+      gradient: "from-blue-500 via-indigo-500 to-violet-500",
+      glowColor: "rgba(59, 130, 246, 0.3)",
+      bgGradient: "from-blue-50 to-indigo-50"
+    },
+    {
+      icon: (
+        <svg className="w-10 h-10" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+        </svg>
+      ),
+      title: "Campus Complaints",
+      description: "Report campus issues quickly and track resolutions seamlessly for a better student experience",
+      gradient: "from-red-500 via-rose-500 to-pink-500",
+      glowColor: "rgba(239, 68, 68, 0.3)",
+      bgGradient: "from-red-50 to-rose-50"
+    },
+    {
+      icon: (
+        <svg className="w-10 h-10" fill="none" stroke="currentColor" viewBox="0 0 24 24">
           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
         </svg>
       ),
@@ -74,7 +98,8 @@ const Features = () => {
       gradient: "from-pink-500 via-rose-500 to-red-500",
       glowColor: "rgba(236, 72, 153, 0.3)",
       bgGradient: "from-pink-50 to-rose-50"
-    }
+    },
+
   ]
 
   const additionalFeatures = [
@@ -90,7 +115,7 @@ const Features = () => {
         <div className="absolute top-0 left-1/4 w-96 h-96 bg-emerald-200/20 rounded-full blur-3xl"></div>
         <div className="absolute bottom-0 right-1/4 w-96 h-96 bg-teal-200/20 rounded-full blur-3xl"></div>
       </div>
-      
+
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         {/* Section Header */}
         <motion.div
@@ -120,7 +145,7 @@ const Features = () => {
               whileHover={{ y: -12, scale: 1.02, rotateY: 2 }}
               className="group relative"
             >
-              <div 
+              <div
                 className={`relative bg-gradient-to-br ${feature.bgGradient} rounded-3xl p-8 border-2 border-white/50 shadow-xl hover:shadow-2xl transition-all duration-500 h-full flex flex-col overflow-hidden`}
                 style={{
                   boxShadow: `0 20px 60px ${feature.glowColor}, 0 0 0 1px rgba(255, 255, 255, 0.1) inset`
@@ -146,34 +171,34 @@ const Features = () => {
 
                 {/* Decorative corner accent */}
                 <div className="absolute top-0 right-0 w-32 h-32 bg-white/10 rounded-bl-full"></div>
-                
+
                 {/* Content */}
                 <div className="relative z-10 flex flex-col items-center text-center h-full">
                   {/* Icon with enhanced styling */}
-                  <motion.div 
+                  <motion.div
                     className={`w-20 h-20 bg-gradient-to-br ${feature.gradient} rounded-2xl flex items-center justify-center mb-6 shadow-2xl group-hover:scale-110 group-hover:rotate-6 transition-all duration-300`}
                     whileHover={{ scale: 1.15, rotate: 10 }}
                     style={{
                       filter: 'drop-shadow(0 10px 30px rgba(0, 0, 0, 0.2))'
                     }}
                   >
-                  <div className="text-white">
-                    {feature.icon}
-                  </div>
+                    <div className="text-white">
+                      {feature.icon}
+                    </div>
                   </motion.div>
 
-                {/* Title */}
+                  {/* Title */}
                   <h3 className="text-xl md:text-2xl font-bold text-gray-900 mb-3 group-hover:text-transparent group-hover:bg-clip-text group-hover:bg-gradient-to-r group-hover:from-emerald-600 group-hover:to-teal-600 transition-all duration-300">
-                  {feature.title}
-                </h3>
+                    {feature.title}
+                  </h3>
 
-                {/* Description */}
+                  {/* Description */}
                   <p className="text-gray-700 text-sm md:text-base leading-relaxed flex-grow">
-                  {feature.description}
-                </p>
+                    {feature.description}
+                  </p>
 
                   {/* Arrow indicator on hover */}
-                  <motion.div 
+                  <motion.div
                     className="mt-4 opacity-0 group-hover:opacity-100 transition-opacity duration-300"
                     initial={{ x: -10 }}
                     whileHover={{ x: 0 }}

@@ -3,7 +3,7 @@
 // All API routes are prefixed with /api
 // Reference: https://api.lorvensit.online/
 
-export const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || 'https://api-v2.lorvensit.online'
+export const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || ''
 
 // API Endpoints - Based on actual backend routes
 // Public leaderboard endpoint (no authentication required)
@@ -21,7 +21,7 @@ export const fetchAPI = async (endpoint, options = {}) => {
   const baseUrl = API_BASE_URL.replace(/\/$/, '')
   const cleanEndpoint = endpoint.startsWith('/') ? endpoint : `/${endpoint}`
   const url = `${baseUrl}${cleanEndpoint}`
-  
+
   const defaultOptions = {
     headers: {
       'Content-Type': 'application/json',
@@ -30,7 +30,7 @@ export const fetchAPI = async (endpoint, options = {}) => {
 
   try {
     console.log('Fetching from:', url) // Debug log
-    
+
     const response = await fetch(url, {
       ...defaultOptions,
       ...options,
@@ -66,7 +66,7 @@ export const fetchAPI = async (endpoint, options = {}) => {
       })
       throw networkError
     }
-    
+
     console.error('API Error:', {
       url,
       error: error.message,

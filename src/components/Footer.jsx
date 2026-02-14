@@ -21,14 +21,14 @@ const Footer = () => {
         <div className="absolute bottom-0 left-1/4 w-96 h-96 bg-emerald-600/5 rounded-full blur-3xl"></div>
         <div className="absolute bottom-0 right-1/4 w-96 h-96 bg-teal-600/5 rounded-full blur-3xl"></div>
       </div>
-      
+
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         <div className="grid md:grid-cols-3 gap-8">
           <div>
             <div className="flex items-center space-x-3 mb-4">
-              <img 
-                src={logo} 
-                alt="ScrapDig Logo" 
+              <img
+                src={logo}
+                alt="ScrapDig Logo"
                 className="h-12 w-auto object-contain"
               />
             </div>
@@ -58,10 +58,10 @@ const Footer = () => {
             <h3 className="font-semibold mb-4 text-emerald-400">Contact Info</h3>
             <ul className="space-y-2 text-gray-300">
               <li>
-                Email: <a href="mailto:lorvensitsolutionspvtltd@gmail.com" className="hover:text-emerald-400 transition duration-200 hover:underline">lorvensitsolutionspvtltd@gmail.com</a>
+                Email: <a href="mailto:ScrapDigOfficial@gmail.com" className="hover:text-emerald-400 transition duration-200 hover:underline">ScrapDigOfficial@gmail.com</a>
               </li>
               <li>
-                Phone: <a href="tel:+917013814030" className="hover:text-emerald-400 transition duration-200 hover:underline">+91 7013814030</a>
+                Phone: <a href="tel:+91 8143928266" className="hover:text-emerald-400 transition duration-200 hover:underline">+91 8143928266</a>
               </li>
             </ul>
           </div>
