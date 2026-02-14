@@ -23,8 +23,8 @@ const Contact = () => {
         </svg>
       ),
       label: "Email",
-      value: "ScrapDigOfficial@gmail.com",
-      link: "mailto:ScrapDigOfficial@gmail.com",
+      value: "scrapdigofficial@gmail.com",
+      link: "mailto:scrapdigofficial@gmail.com",
       bgColor: "bg-blue-50",
       iconColor: "text-blue-600",
       borderColor: "border-blue-200"
@@ -110,7 +110,7 @@ const Contact = () => {
           <div className="inline-block bg-white rounded-xl px-8 py-6 shadow-lg border border-gray-100">
             <div className="space-y-3">
               <p className="text-gray-600 text-lg">
-                <span className="font-semibold text-gray-900">Business Hours:</span> Monday - Friday, 9:00 AM - 6:00 PM IST
+                <span className="font-semibold text-gray-900">Business Hours:</span> Monday - Sunday, 9:00 AM - 9:00 PM IST
               </p>
               <p className="text-primary text-lg font-semibold">
                 <span className="inline-flex items-center">

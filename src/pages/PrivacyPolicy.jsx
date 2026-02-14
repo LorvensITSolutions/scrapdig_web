@@ -33,7 +33,7 @@ const PrivacyPolicy = () => {
             <h2 className="text-2xl font-bold text-gray-900 mb-4 border-b-2 border-primary pb-2">
               2. Information We Collect
             </h2>
-            
+
             <h3 className="text-xl font-semibold text-gray-800 mb-3 mt-6">
               2.1 Personal Information
             </h3>
@@ -213,7 +213,7 @@ const PrivacyPolicy = () => {
 
           <div className="mt-12 pt-8 border-t border-gray-200 text-center">
             <p className="text-gray-600 text-sm">
-              © 2024 ScrapDig. All rights reserved.
+              © 2026 YesLorvens. All rights reserved.
             </p>
           </div>
         </div>

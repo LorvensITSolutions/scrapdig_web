@@ -1,14 +1,16 @@
 import React from 'react'
-import { Link } from 'react-router-dom'
+import { Link, useLocation } from 'react-router-dom'
 import logo from '../assets/GREEN LOGO.png'
 
 const Footer = () => {
+  const location = useLocation()
   const quickLinks = [
     { label: "Features", href: "#features", isHash: true },
     { label: "How It Works", href: "#how-it-works", isHash: true },
     { label: "Levels & Badges", href: "#levels-badges", isHash: true },
-    { label: "Achievements", href: "#achievements", isHash: true },
-    { label: "Leaderboard", href: "#leaderboard", isHash: true },
+    //{ label: "Achievements", href: "#achievements", isHash: true },
+    // { label: "Leaderboard", href: "#leaderboard", isHash: true },
+    { label: "Help Center", href: "#help-center", isHash: true },
     { label: "Contact", href: "#contact", isHash: true },
     { label: "Privacy Policy", href: "/privacy-policy", isHash: false },
     { label: "Refund & Cancellation Policy", href: "/refund-cancellation-policy", isHash: false }
@@ -39,26 +41,32 @@ const Footer = () => {
           <div>
             <h3 className="font-semibold mb-4 text-emerald-400">Quick Links</h3>
             <ul className="space-y-2 text-gray-300">
-              {quickLinks.map((link, index) => (
-                <li key={index}>
-                  {link.isHash ? (
-                    <a href={link.href} className="hover:text-emerald-400 transition duration-200">
-                      {link.label}
-                    </a>
-                  ) : (
-                    <Link to={link.href} className="hover:text-emerald-400 transition duration-200">
-                      {link.label}
-                    </Link>
-                  )}
-                </li>
-              ))}
+              {quickLinks.map((link, index) => {
+                const isHashLinkOnOtherPage = link.isHash && location.pathname !== '/'
+                const targetHref = isHashLinkOnOtherPage ? `/${link.href}` : link.href
+                const shouldUseLink = !link.isHash || isHashLinkOnOtherPage
+
+                return (
+                  <li key={index}>
+                    {shouldUseLink ? (
+                      <Link to={targetHref} className="hover:text-emerald-400 transition duration-200">
+                        {link.label}
+                      </Link>
+                    ) : (
+                      <a href={targetHref} className="hover:text-emerald-400 transition duration-200">
+                        {link.label}
+                      </a>
+                    )}
+                  </li>
+                )
+              })}
             </ul>
           </div>
           <div>
             <h3 className="font-semibold mb-4 text-emerald-400">Contact Info</h3>
             <ul className="space-y-2 text-gray-300">
               <li>
-                Email: <a href="mailto:ScrapDigOfficial@gmail.com" className="hover:text-emerald-400 transition duration-200 hover:underline">ScrapDigOfficial@gmail.com</a>
+                Email: <a href="mailto:scrapdigofficial@gmail.com" className="hover:text-emerald-400 transition duration-200 hover:underline">scrapdigofficial@gmail.com</a>
               </li>
               <li>
                 Phone: <a href="tel:+91 8143928266" className="hover:text-emerald-400 transition duration-200 hover:underline">+91 8143928266</a>

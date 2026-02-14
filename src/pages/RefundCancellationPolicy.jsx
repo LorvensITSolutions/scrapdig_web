@@ -36,7 +36,7 @@ const RefundCancellationPolicy = () => {
             <h2 className="text-2xl font-bold text-gray-900 mb-4 border-b-2 border-primary pb-2">
               2. General Refund Policy
             </h2>
-            
+
             <h3 className="text-xl font-semibold text-gray-800 mb-3 mt-6">
               2.1 Refund Eligibility
             </h3>
@@ -65,7 +65,7 @@ const RefundCancellationPolicy = () => {
             <h2 className="text-2xl font-bold text-gray-900 mb-4 border-b-2 border-primary pb-2">
               3. Payment Gateway Refunds
             </h2>
-            
+
             <h3 className="text-xl font-semibold text-gray-800 mb-3 mt-6">
               3.1 Razorpay/Cashfree Payments
             </h3>
@@ -93,7 +93,7 @@ const RefundCancellationPolicy = () => {
             <h2 className="text-2xl font-bold text-gray-900 mb-4 border-b-2 border-primary pb-2">
               4. Virtual Coins (Points) Refunds
             </h2>
-            
+
             <h3 className="text-xl font-semibold text-gray-800 mb-3 mt-6">
               4.1 Points Refund Policy
             </h3>
@@ -120,7 +120,7 @@ const RefundCancellationPolicy = () => {
             <h2 className="text-2xl font-bold text-gray-900 mb-4 border-b-2 border-primary pb-2">
               5. Order Cancellation
             </h2>
-            
+
             <h3 className="text-xl font-semibold text-gray-800 mb-3 mt-6">
               5.1 Eco Store Orders
             </h3>
@@ -148,7 +148,7 @@ const RefundCancellationPolicy = () => {
             <h2 className="text-2xl font-bold text-gray-900 mb-4 border-b-2 border-primary pb-2">
               6. Cancellation Process
             </h2>
-            
+
             <h3 className="text-xl font-semibold text-gray-800 mb-3 mt-6">
               6.1 How to Cancel
             </h3>
@@ -175,7 +175,7 @@ const RefundCancellationPolicy = () => {
             <h2 className="text-2xl font-bold text-gray-900 mb-4 border-b-2 border-primary pb-2">
               7. Refund Processing
             </h2>
-            
+
             <h3 className="text-xl font-semibold text-gray-800 mb-3 mt-6">
               7.1 Refund Timeline
             </h3>
@@ -214,7 +214,7 @@ const RefundCancellationPolicy = () => {
             <h2 className="text-2xl font-bold text-gray-900 mb-4 border-b-2 border-primary pb-2">
               9. Special Cases
             </h2>
-            
+
             <h3 className="text-xl font-semibold text-gray-800 mb-3 mt-6">
               9.1 Promotional Offers
             </h3>
@@ -257,10 +257,9 @@ const RefundCancellationPolicy = () => {
             </h2>
             <p className="text-gray-700 mb-4">For refund requests, cancellations, or questions about this policy, please contact us:</p>
             <div className="space-y-2 text-gray-700">
-              <p><strong className="text-primary">Email:</strong> <a href="mailto:lorvensitsolutionspvtltd@gmail.com" className="text-primary hover:underline">lorvensitsolutionspvtltd@gmail.com</a></p>
-              <p><strong className="text-primary">Website:</strong> <a href="https://yeslorvens.com" target="_blank" rel="noopener noreferrer" className="text-primary hover:underline">https://yeslorvens.com</a></p>
-              <p><strong className="text-primary">Address:</strong> Road NO.86, 1st Floor, Jubilee hills, Hyderabad, Telangana, India</p>
-              <p><strong className="text-primary">Phone:</strong> <a href="tel:+917013814030" className="text-primary hover:underline">+91 7013814030</a></p>
+              <p><strong className="text-primary">Email:</strong> <a href="mailto:scrapdigofficial@gmail.com" className="text-primary hover:underline">scrapdigofficial@gmail.com</a></p>
+              <p><strong className="text-primary">WhatsApp Channel:</strong> <a href="https://whatsapp.com/channel/0029VbC1utk84Om7YA561l3b" target="_blank" rel="noopener noreferrer" className="text-primary hover:underline">Follow the ScrapDig - Earn from Waste channel on WhatsApp</a></p>
+              <p><strong className="text-primary">Phone:</strong> <a href="tel:+918143928266" className="text-primary hover:underline">+91 8143928266</a></p>
             </div>
             <p className="text-gray-700 mt-4">
               <strong>Response Time:</strong> We aim to respond to all refund and cancellation requests within 24-48 hours during business days.

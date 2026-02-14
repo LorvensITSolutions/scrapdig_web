@@ -169,7 +169,7 @@ const HelpCenter = () => {
         },
         {
           q: 'What if I don\'t receive payment?',
-          a: 'If you haven\'t received payment within 48 hours after pickup, please contact our support team. Make sure you\'ve provided the correct payment details. You can raise a complaint through the app or contact us at lorvensitsolutionspvtltd@gmail.com'
+          a: 'If you haven\'t received payment within 48 hours after pickup, please contact our support team. Make sure you\'ve provided the correct payment details. You can raise a complaint through the app or contact us at scarpdigofficial@gmail.com'
         },
         {
           q: 'Are there any fees or charges?',
@@ -459,7 +459,7 @@ const HelpCenter = () => {
               </p>
               <div className="flex flex-col sm:flex-row gap-4 justify-center">
                 <a
-                  href="mailto:lorvensitsolutionspvtltd@gmail.com"
+                  href="mailto:scrapdigofficial@gmail.com"
                   className="inline-flex items-center justify-center px-8 py-4 bg-gradient-to-r from-emerald-500 to-teal-500 text-white font-semibold rounded-xl hover:from-emerald-600 hover:to-teal-600 transition-all duration-200 shadow-lg hover:shadow-xl hover:scale-105"
                 >
                   <svg className="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
