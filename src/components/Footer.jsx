@@ -13,7 +13,8 @@ const Footer = () => {
     { label: "Help Center", href: "#help-center", isHash: true },
     { label: "Contact", href: "#contact", isHash: true },
     { label: "Privacy Policy", href: "/privacy-policy", isHash: false },
-    { label: "Refund & Cancellation Policy", href: "/refund-cancellation-policy", isHash: false }
+    { label: "Refund & Cancellation Policy", href: "/refund-cancellation-policy", isHash: false },
+    { label: "Account Deletion", href: "/account-deletion", isHash: false }
   ]
 
   return (

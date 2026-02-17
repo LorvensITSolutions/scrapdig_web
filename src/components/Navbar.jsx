@@ -46,6 +46,10 @@ const Navbar = () => {
       setActiveLink('refund-cancellation-policy')
       return
     }
+    if (location.pathname === '/account-deletion') {
+      setActiveLink('account-deletion')
+      return
+    }
 
     const handleScroll = () => {
       const sections = ['features', 'how-it-works', 'levels-badges', 'achievements', 'leaderboard', 'partners', 'help-center', 'contact']
@@ -206,7 +210,7 @@ const Navbar = () => {
             <div className="relative">
               <button
                 onClick={() => setIsMoreMenuOpen(!isMoreMenuOpen)}
-                className={`transition font-medium text-sm flex items-center gap-1 ${(activeLink === 'privacy-policy' || activeLink === 'refund-cancellation-policy')
+                className={`transition font-medium text-sm flex items-center gap-1 ${(activeLink === 'privacy-policy' || activeLink === 'refund-cancellation-policy' || activeLink === 'account-deletion')
                   ? 'text-emerald-400 font-semibold border-b-2 border-emerald-400 pb-1'
                   : 'text-gray-200 hover:text-emerald-400'
                   }`}
@@ -244,6 +248,16 @@ const Navbar = () => {
                       }`}
                   >
                     Refund Policy
+                  </Link>
+                  <Link
+                    to="/account-deletion"
+                    onClick={() => setIsMoreMenuOpen(false)}
+                    className={`block px-4 py-2 text-sm transition ${activeLink === 'account-deletion'
+                      ? 'bg-emerald-500/20 text-emerald-400 font-semibold'
+                      : 'text-gray-200 hover:bg-emerald-500/10 hover:text-emerald-400'
+                      }`}
+                  >
+                    Account Deletion
                   </Link>
                 </div>
               )}
@@ -380,6 +394,16 @@ const Navbar = () => {
               onClick={() => setIsMenuOpen(false)}
             >
               Refund Policy
+            </Link>
+            <Link
+              to="/account-deletion"
+              className={`block px-4 py-3 transition rounded-lg font-medium ${activeLink === 'account-deletion'
+                ? 'bg-emerald-500/20 text-emerald-400 font-semibold'
+                : 'text-gray-200 hover:bg-emerald-500/10 hover:text-emerald-400'
+                }`}
+              onClick={() => setIsMenuOpen(false)}
+            >
+              Account Deletion
             </Link>
           </div>
         )}
