@@ -38,7 +38,7 @@ const Hero = () => {
           }}
           transition={{
             duration: 8,
-            repeat: Infinity,
+            repeat: 2,
             ease: "easeInOut"
           }}
           className="absolute top-10 right-10 sm:top-20 sm:right-20 w-[200px] h-[200px] sm:w-[300px] sm:h-[300px] lg:w-[500px] lg:h-[500px] bg-emerald-500/20 rounded-full blur-3xl"
@@ -50,7 +50,7 @@ const Hero = () => {
           }}
           transition={{
             duration: 10,
-            repeat: Infinity,
+            repeat: 2,
             ease: "easeInOut"
           }}
           className="absolute bottom-10 left-10 sm:bottom-20 sm:left-20 w-[200px] h-[200px] sm:w-[300px] sm:h-[300px] lg:w-[500px] lg:h-[500px] bg-teal-500/20 rounded-full blur-3xl"
@@ -62,7 +62,7 @@ const Hero = () => {
           }}
           transition={{
             duration: 12,
-            repeat: Infinity,
+            repeat: 2,
             ease: "easeInOut",
             delay: 1
           }}
@@ -97,7 +97,7 @@ const Hero = () => {
                   <span className="sm:hidden">#1 Recycling</span>
                   <motion.span
                     animate={{ scale: [1, 1.2, 1] }}
-                    transition={{ duration: 2, repeat: Infinity }}
+                    transition={{ duration: 2, repeat: 2 }}
                     className="ml-2 text-emerald-400"
                   >
                     ✨
@@ -119,7 +119,7 @@ const Hero = () => {
                   }}
                   transition={{
                     duration: 5,
-                    repeat: Infinity,
+                    repeat: 2,
                     ease: "linear"
                   }}
                   style={{
@@ -164,7 +164,7 @@ const Hero = () => {
       stroke="currentColor" 
       viewBox="0 0 24 24"
       animate={{ y: [0, -3, 0] }}
-      transition={{ duration: 1.5, repeat: Infinity }}
+      transition={{ duration: 1.5, repeat: 2 }}
     >
       <path
         strokeLinecap="round"
@@ -194,7 +194,7 @@ const Hero = () => {
                     stroke="currentColor" 
                     viewBox="0 0 24 24"
                     animate={{ x: [0, 5, 0] }}
-                    transition={{ duration: 1.5, repeat: Infinity }}
+                    transition={{ duration: 1.5, repeat: 2 }}
                   >
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 7l5 5m0 0l-5 5m5-5H6" />
                   </motion.svg>
@@ -276,7 +276,7 @@ const Hero = () => {
                             }}
                             transition={{ 
                               duration: 3, 
-                              repeat: Infinity, 
+                              repeat: 2, 
                               repeatDelay: 1,
                               ease: "easeInOut"
                             }}
@@ -298,7 +298,7 @@ const Hero = () => {
                       }}
                       transition={{ 
                         duration: 3, 
-                        repeat: Infinity, 
+                        repeat: 2, 
                         repeatDelay: 2,
                         ease: "easeInOut"
                       }}
@@ -316,7 +316,7 @@ const Hero = () => {
                   <motion.div
                     className="absolute inset-0 bg-gradient-to-r from-transparent via-white/10 to-transparent opacity-0 group-hover:opacity-100"
                     animate={{ x: ['-100%', '200%'] }}
-                    transition={{ duration: 1.5, repeat: Infinity, repeatDelay: 2 }}
+                    transition={{ duration: 1.5, repeat: 2, repeatDelay: 2 }}
                   />
                 </motion.div>
               ))}
@@ -403,7 +403,7 @@ const Hero = () => {
                   transition={{
                     scale: {
                       duration: 3,
-                      repeat: Infinity,
+                        repeat: 2,
                       ease: "easeInOut"
                     }
                   }}
@@ -443,7 +443,7 @@ const Hero = () => {
                   }}
                   transition={{
                     duration: 3,
-                    repeat: Infinity,
+                    repeat: 2,
                     ease: "easeInOut"
                   }}
                 />

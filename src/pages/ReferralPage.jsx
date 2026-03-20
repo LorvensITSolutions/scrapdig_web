@@ -96,7 +96,7 @@ const ReferralPage = () => {
                 <motion.div
                   className="text-4xl sm:text-5xl font-mono font-bold bg-gradient-to-r from-emerald-600 to-teal-600 bg-clip-text text-transparent"
                   animate={{ scale: [1, 1.05, 1] }}
-                  transition={{ duration: 2, repeat: Infinity }}
+                  transition={{ duration: 2, repeat: 2 }}
                 >
                   {referralCode}
                 </motion.div>

@@ -178,7 +178,7 @@ const Partners = () => {
           <div className="text-center py-20">
             <motion.div
               animate={{ rotate: 360 }}
-              transition={{ duration: 1, repeat: Infinity, ease: "linear" }}
+              transition={{ duration: 1, repeat: 2, ease: "linear" }}
               className="w-12 h-12 sm:w-14 sm:h-14 md:w-16 md:h-16 border-4 border-emerald-500 border-t-transparent rounded-full mx-auto mb-3 sm:mb-4"
             />
             <p className="text-gray-600 text-sm sm:text-base md:text-lg">Loading partners...</p>

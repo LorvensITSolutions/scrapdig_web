@@ -206,7 +206,7 @@ const LevelsBadges = () => {
                     }}
                     transition={{
                       duration: 3,
-                      repeat: Infinity,
+                      repeat: 2,
                       repeatType: "reverse",
                       ease: "easeInOut"
                     }}

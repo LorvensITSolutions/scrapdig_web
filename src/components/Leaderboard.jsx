@@ -141,10 +141,10 @@ const Leaderboard = () => {
     <section id="leaderboard" className="py-12 sm:py-16 lg:py-24 bg-gradient-to-br from-slate-900 via-emerald-950 to-slate-900 relative overflow-hidden">
       {/* Enhanced decorative background elements */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
-        <div className="absolute top-0 left-1/4 w-48 h-48 sm:w-72 sm:h-72 lg:w-96 lg:h-96 bg-emerald-500/15 rounded-full blur-3xl animate-pulse"></div>
-        <div className="absolute bottom-0 right-1/4 w-48 h-48 sm:w-72 sm:h-72 lg:w-96 lg:h-96 bg-teal-500/15 rounded-full blur-3xl animate-pulse" style={{ animationDelay: '1s' }}></div>
+        <div className="absolute top-0 left-1/4 w-48 h-48 sm:w-72 sm:h-72 lg:w-96 lg:h-96 bg-emerald-500/15 rounded-full blur-3xl opacity-70"></div>
+        <div className="absolute bottom-0 right-1/4 w-48 h-48 sm:w-72 sm:h-72 lg:w-96 lg:h-96 bg-teal-500/15 rounded-full blur-3xl opacity-70" style={{ animationDelay: '1s' }}></div>
         <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-[300px] h-[300px] sm:w-[400px] sm:h-[400px] lg:w-[600px] lg:h-[600px] bg-green-500/8 rounded-full blur-3xl"></div>
-        <div className="absolute top-1/4 right-1/3 w-36 h-36 sm:w-56 sm:h-56 lg:w-72 lg:h-72 bg-cyan-500/10 rounded-full blur-3xl animate-pulse" style={{ animationDelay: '2s' }}></div>
+        <div className="absolute top-1/4 right-1/3 w-36 h-36 sm:w-56 sm:h-56 lg:w-72 lg:h-72 bg-cyan-500/10 rounded-full blur-3xl opacity-70" style={{ animationDelay: '2s' }}></div>
       </div>
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
@@ -169,7 +169,7 @@ const Leaderboard = () => {
           <div className="text-center py-20">
             <motion.div
               animate={{ rotate: 360 }}
-              transition={{ duration: 1, repeat: Infinity, ease: "linear" }}
+              transition={{ duration: 1, repeat: 2, ease: "linear" }}
               className="w-12 h-12 sm:w-14 sm:h-14 md:w-16 md:h-16 border-4 border-emerald-500 border-t-transparent rounded-full mx-auto mb-3 sm:mb-4"
             />
             <p className="text-gray-300 text-sm sm:text-base md:text-lg">Loading leaderboard...</p>
@@ -397,7 +397,7 @@ const Leaderboard = () => {
                     <motion.div
                       className="absolute inset-0 bg-gradient-to-r from-transparent via-white/30 to-transparent"
                       animate={{ x: ['-100%', '200%'] }}
-                      transition={{ duration: 2, repeat: Infinity, repeatDelay: 3, ease: "linear" }}
+                      transition={{ duration: 2, repeat: 2, repeatDelay: 3, ease: "linear" }}
                     />
                     
                     <span className="relative z-10 flex items-center justify-center gap-1.5 sm:gap-2">
@@ -418,7 +418,7 @@ const Leaderboard = () => {
                             stroke="currentColor" 
                             viewBox="0 0 24 24"
                             animate={{ y: [0, 5, 0] }}
-                            transition={{ duration: 1.5, repeat: Infinity, ease: "easeInOut" }}
+                            transition={{ duration: 1.5, repeat: 2, ease: "easeInOut" }}
                           >
                             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
                           </motion.svg>

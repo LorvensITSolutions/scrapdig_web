@@ -164,7 +164,7 @@ const Features = () => {
                   }}
                   transition={{
                     duration: 3,
-                    repeat: Infinity,
+                    repeat: 2,
                     ease: "easeInOut"
                   }}
                 />

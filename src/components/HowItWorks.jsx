@@ -127,8 +127,8 @@ const HowItWorks = () => {
     <section id="how-it-works" className="py-24 bg-gradient-to-br from-gray-900 via-emerald-950 to-gray-900 relative overflow-hidden">
       {/* Animated background elements */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
-        <div className="absolute top-0 left-1/4 w-96 h-96 bg-emerald-600/10 rounded-full blur-3xl animate-pulse"></div>
-        <div className="absolute bottom-0 right-1/4 w-96 h-96 bg-teal-600/10 rounded-full blur-3xl animate-pulse" style={{ animationDelay: '1s' }}></div>
+        <div className="absolute top-0 left-1/4 w-96 h-96 bg-emerald-600/10 rounded-full blur-3xl opacity-70"></div>
+        <div className="absolute bottom-0 right-1/4 w-96 h-96 bg-teal-600/10 rounded-full blur-3xl opacity-70" style={{ animationDelay: '1s' }}></div>
         <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-green-700/5 rounded-full blur-3xl"></div>
       </div>
       
@@ -225,7 +225,7 @@ const HowItWorks = () => {
                         }}
                         transition={{
                           duration: 3,
-                          repeat: Infinity,
+                          repeat: 2,
                           ease: "easeInOut"
                         }}
                       />
