@@ -29,8 +29,10 @@ const Hero = () => {
 
   return (
     <section className="w-full relative overflow-hidden bg-gradient-to-br from-slate-900 via-emerald-950 to-slate-900 min-h-screen flex items-center py-12 sm:py-16 lg:py-0 lg:h-screen">
-      {/* Animated background elements */}
+      {/* Animated background elements (disabled heavily on mobile for smoothness) */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
+        {isDesktop ? (
+          <>
         <motion.div
           animate={{
             scale: [1, 1.3, 1],
@@ -68,6 +70,14 @@ const Hero = () => {
           }}
           className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-[300px] h-[300px] sm:w-[400px] sm:h-[400px] lg:w-[600px] lg:h-[600px] bg-green-500/10 rounded-full blur-3xl"
         />
+          </>
+        ) : (
+          <>
+            <div className="absolute top-10 right-10 w-[200px] h-[200px] bg-emerald-500/20 rounded-full blur-3xl opacity-70" />
+            <div className="absolute bottom-10 left-10 w-[200px] h-[200px] bg-teal-500/20 rounded-full blur-3xl opacity-60" />
+            <div className="absolute top-1/2 left-1/2 w-[300px] h-[300px] -translate-x-1/2 -translate-y-1/2 bg-green-500/10 rounded-full blur-3xl opacity-50" />
+          </>
+        )}
         {/* Grid pattern overlay */}
         <div className="absolute inset-0 bg-[linear-gradient(to_right,#80808012_1px,transparent_1px),linear-gradient(to_bottom,#80808012_1px,transparent_1px)] bg-[size:24px_24px] opacity-30"></div>
       </div>
@@ -90,18 +100,22 @@ const Hero = () => {
               >
                 <motion.span 
                   className="inline-flex items-center px-3 py-1.5 sm:px-4 sm:py-2 rounded-full bg-gradient-to-r from-emerald-500/20 to-teal-500/20 backdrop-blur-md border border-emerald-500/30 text-emerald-300 text-[10px] sm:text-xs font-bold shadow-lg"
-                  whileHover={{ scale: 1.05 }}
+                  whileHover={isDesktop ? { scale: 1.05 } : undefined}
                 >
                   <span className="mr-1.5 sm:mr-2 text-sm sm:text-base">🌍</span>
                   <span className="hidden sm:inline">India's #1 Recycling Platform</span>
                   <span className="sm:hidden">#1 Recycling</span>
-                  <motion.span
-                    animate={{ scale: [1, 1.2, 1] }}
-                    transition={{ duration: 2, repeat: 2 }}
-                    className="ml-2 text-emerald-400"
-                  >
-                    ✨
-                  </motion.span>
+                  {isDesktop ? (
+                    <motion.span
+                      animate={{ scale: [1, 1.2, 1] }}
+                      transition={{ duration: 2, repeat: 2 }}
+                      className="ml-2 text-emerald-400"
+                    >
+                      ✨
+                    </motion.span>
+                  ) : (
+                    <span className="ml-2 text-emerald-400">✨</span>
+                  )}
                 </motion.span>
               </motion.div>
               
@@ -112,22 +126,28 @@ const Hero = () => {
                 className="text-3xl sm:text-4xl md:text-5xl lg:text-5xl xl:text-6xl font-extrabold leading-tight"
               >
                 <span className="text-white">Transform Waste into</span>
-                <motion.span 
-                  className="block bg-gradient-to-r from-emerald-400 via-teal-400 to-cyan-400 bg-clip-text text-transparent"
-                  animate={{
-                    backgroundPosition: ['0%', '100%', '0%'],
-                  }}
-                  transition={{
-                    duration: 5,
-                    repeat: 2,
-                    ease: "linear"
-                  }}
-                  style={{
-                    backgroundSize: '200% auto'
-                  }}
-                >
-                  Wealth & Impact
-                </motion.span>
+                {isDesktop ? (
+                  <motion.span 
+                    className="block bg-gradient-to-r from-emerald-400 via-teal-400 to-cyan-400 bg-clip-text text-transparent"
+                    animate={{
+                      backgroundPosition: ['0%', '100%', '0%'],
+                    }}
+                    transition={{
+                      duration: 5,
+                      repeat: 2,
+                      ease: "linear"
+                    }}
+                    style={{
+                      backgroundSize: '200% auto'
+                    }}
+                  >
+                    Wealth & Impact
+                  </motion.span>
+                ) : (
+                  <span className="block bg-gradient-to-r from-emerald-400 via-teal-400 to-cyan-400 bg-clip-text text-transparent">
+                    Wealth & Impact
+                  </span>
+                )}
               </motion.h1>
               
               <motion.p
@@ -151,7 +171,7 @@ const Hero = () => {
   target=""
   rel="noopener noreferrer"
   className="group relative bg-gradient-to-r from-yellow-500 to-orange-500 text-white px-5 py-2.5 sm:px-6 sm:py-3 rounded-xl font-bold text-sm sm:text-base overflow-hidden shadow-2xl w-full sm:w-auto"
-  whileHover={{ scale: 1.05, y: -2 }}
+  whileHover={isDesktop ? { scale: 1.05, y: -2 } : undefined}
   whileTap={{ scale: 0.95 }}
 >
   <motion.div
@@ -163,8 +183,8 @@ const Hero = () => {
       fill="none" 
       stroke="currentColor" 
       viewBox="0 0 24 24"
-      animate={{ y: [0, -3, 0] }}
-      transition={{ duration: 1.5, repeat: 2 }}
+      animate={isDesktop ? { y: [0, -3, 0] } : undefined}
+      transition={isDesktop ? { duration: 1.5, repeat: 2 } : undefined}
     >
       <path
         strokeLinecap="round"
@@ -180,7 +200,7 @@ const Hero = () => {
               <motion.a 
                 href="#features"
                 className="group relative bg-gradient-to-r from-emerald-500 to-teal-500 text-white px-5 py-2.5 sm:px-6 sm:py-3 rounded-xl font-bold text-sm sm:text-base overflow-hidden shadow-2xl w-full sm:w-auto"
-                whileHover={{ scale: 1.05, y: -2 }}
+                whileHover={isDesktop ? { scale: 1.05, y: -2 } : undefined}
                 whileTap={{ scale: 0.95 }}
               >
                 <motion.div
@@ -193,8 +213,8 @@ const Hero = () => {
                     fill="none" 
                     stroke="currentColor" 
                     viewBox="0 0 24 24"
-                    animate={{ x: [0, 5, 0] }}
-                    transition={{ duration: 1.5, repeat: 2 }}
+                    animate={isDesktop ? { x: [0, 5, 0] } : undefined}
+                    transition={isDesktop ? { duration: 1.5, repeat: 2 } : undefined}
                   >
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 7l5 5m0 0l-5 5m5-5H6" />
                   </motion.svg>
@@ -203,7 +223,7 @@ const Hero = () => {
               <motion.a 
                 href="#how-it-works"
                 className="bg-slate-800/50 backdrop-blur-md text-white border-2 border-emerald-500/50 px-5 py-2.5 sm:px-6 sm:py-3 rounded-xl font-bold text-sm sm:text-base hover:border-emerald-400 transition-all duration-300 shadow-xl w-full sm:w-auto"
-                whileHover={{ scale: 1.05, y: -2, borderColor: 'rgb(16, 185, 129)' }}
+                whileHover={isDesktop ? { scale: 1.05, y: -2, borderColor: 'rgb(16, 185, 129)' } : undefined}
                 whileTap={{ scale: 0.95 }}
               >
                 How It Works
@@ -251,7 +271,7 @@ const Hero = () => {
                   initial={{ opacity: 0, scale: 0.8, y: 20 }}
                   animate={{ opacity: 1, scale: 1, y: 0 }}
                   transition={{ delay: 0.7 + index * 0.1, type: "spring", stiffness: 200 }}
-                  whileHover={{ scale: 1.1, y: -5 }}
+                  whileHover={isDesktop ? { scale: 1.1, y: -5 } : undefined}
                   className="relative group text-center lg:text-left bg-gradient-to-br from-slate-800/80 to-slate-900/80 backdrop-blur-md rounded-lg sm:rounded-xl p-2.5 sm:p-3 lg:p-4 border border-emerald-500/30 hover:border-emerald-400/60 transition-all shadow-xl overflow-hidden"
                 >
                   {/* Animated background gradient */}
@@ -264,23 +284,31 @@ const Hero = () => {
                         <motion.div 
                           className="flex items-center justify-center lg:justify-start mb-0.5 sm:mb-1 cursor-pointer"
                           onClick={() => setIsCoinModalOpen(true)}
-                          whileHover={{ scale: 1.1 }}
+                          whileHover={isDesktop ? { scale: 1.1 } : undefined}
                           whileTap={{ scale: 0.95 }}
                         >
                           <motion.img
                             src={ecoCoinImage}
                             alt="Eco Coin"
                             className="w-6 h-6 sm:w-7 sm:h-7 lg:w-8 lg:h-8 object-contain drop-shadow-lg"
-                            animate={{ 
-                              rotate: [0, 10, -10, 0],
-                              scale: [1, 1.05, 1]
-                            }}
-                            transition={{ 
-                              duration: 3, 
-                              repeat: 2, 
-                              repeatDelay: 1,
-                              ease: "easeInOut"
-                            }}
+                            animate={
+                              isDesktop
+                                ? {
+                                    rotate: [0, 10, -10, 0],
+                                    scale: [1, 1.05, 1],
+                                  }
+                                : undefined
+                            }
+                            transition={
+                              isDesktop
+                                ? {
+                                    duration: 3,
+                                    repeat: 2,
+                                    repeatDelay: 1,
+                                    ease: "easeInOut",
+                                  }
+                                : undefined
+                            }
                           />
                         </motion.div>
                         <div className={`text-lg sm:text-xl lg:text-2xl font-extrabold bg-gradient-to-r ${stat.gradient} bg-clip-text text-transparent mb-0.5 sm:mb-1`}>
@@ -293,16 +321,24 @@ const Hero = () => {
                       <>
                     <motion.div 
                       className="text-xl sm:text-2xl mb-0.5 sm:mb-1"
-                      animate={{ 
-                        rotate: [0, 10, -10, 0],
-                        scale: [1, 1.1, 1]
-                      }}
-                      transition={{ 
-                        duration: 3, 
-                        repeat: 2, 
-                        repeatDelay: 2,
-                        ease: "easeInOut"
-                      }}
+                      animate={
+                        isDesktop
+                          ? {
+                              rotate: [0, 10, -10, 0],
+                              scale: [1, 1.1, 1],
+                            }
+                          : undefined
+                      }
+                      transition={
+                        isDesktop
+                          ? {
+                              duration: 3,
+                              repeat: 2,
+                              repeatDelay: 2,
+                              ease: "easeInOut",
+                            }
+                          : undefined
+                      }
                     >
                       {stat.icon}
                     </motion.div>
@@ -314,11 +350,13 @@ const Hero = () => {
                     )}
                   </div>
                   {/* Shine effect */}
-                  <motion.div
-                    className="absolute inset-0 bg-gradient-to-r from-transparent via-white/10 to-transparent opacity-0 group-hover:opacity-100"
-                    animate={{ x: ['-100%', '200%'] }}
-                    transition={{ duration: 1.5, repeat: 2, repeatDelay: 2 }}
-                  />
+                  {isDesktop ? (
+                    <motion.div
+                      className="absolute inset-0 bg-gradient-to-r from-transparent via-white/10 to-transparent opacity-0 group-hover:opacity-100"
+                      animate={{ x: ['-100%', '200%'] }}
+                      transition={{ duration: 1.5, repeat: 2, repeatDelay: 2 }}
+                    />
+                  ) : null}
                 </motion.div>
               ))}
             </motion.div>
@@ -398,23 +436,25 @@ const Hero = () => {
                   src={ecoCoinImage}
                   alt="Eco Coin - Large View"
                   className="w-[400px] h-[400px] sm:w-[500px] sm:h-[500px] object-contain drop-shadow-2xl"
-                  animate={{
-                    scale: [1, 1.02, 1]
-                  }}
-                  transition={{
-                    scale: {
-                      duration: 3,
-                        repeat: 2,
-                      ease: "easeInOut"
-                    }
-                  }}
+                  animate={isDesktop ? { scale: [1, 1.02, 1] } : undefined}
+                  transition={
+                    isDesktop
+                      ? {
+                          scale: {
+                            duration: 3,
+                            repeat: 2,
+                            ease: "easeInOut",
+                          },
+                        }
+                      : undefined
+                  }
                 />
 
                 {/* Close Button */}
                 <motion.button
                   onClick={() => setIsCoinModalOpen(false)}
                   className="absolute -top-4 -right-4 w-12 h-12 bg-white/20 backdrop-blur-md rounded-full flex items-center justify-center text-white hover:bg-white/30 transition-colors shadow-xl border-2 border-white/30"
-                  whileHover={{ scale: 1.1, rotate: 90 }}
+                  whileHover={isDesktop ? { scale: 1.1, rotate: 90 } : undefined}
                   whileTap={{ scale: 0.9 }}
                 >
                   <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">

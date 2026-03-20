@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { motion } from 'framer-motion'
 // Import level badge images
 import bronzeBadge from '../assets/levelbadges/bronzebadge.png'
@@ -15,6 +15,18 @@ import ecoScavenger from '../assets/badges/eco-scavenger.png'
 
 const LevelsBadges = () => {
   const [showAchievementBadges, setShowAchievementBadges] = useState(false)
+  const [isMobile, setIsMobile] = useState(() =>
+    typeof window !== 'undefined' ? window.matchMedia('(max-width: 640px)').matches : false
+  )
+
+  useEffect(() => {
+    if (typeof window === 'undefined') return undefined
+
+    const mediaQuery = window.matchMedia('(max-width: 640px)')
+    const handleBreakpointChange = (event) => setIsMobile(event.matches)
+    mediaQuery.addEventListener('change', handleBreakpointChange)
+    return () => mediaQuery.removeEventListener('change', handleBreakpointChange)
+  }, [])
   
   const levels = [
     {
@@ -181,7 +193,7 @@ const LevelsBadges = () => {
             <motion.div
               key={index}
               variants={itemVariants}
-              whileHover={{ scale: 1.03, y: -5 }}
+              whileHover={isMobile ? undefined : { scale: 1.03, y: -5 }}
               className={`group relative ${level.bgColor} rounded-xl sm:rounded-2xl p-4 sm:p-5 md:p-6 lg:p-8 border-2 ${level.borderColor} hover:shadow-2xl transition-all duration-300 transform hover:border-primary overflow-visible`}
             >
               {/* Special Badge */}
@@ -194,35 +206,39 @@ const LevelsBadges = () => {
               {/* Level Badge Image - Large and Prominent */}
               <div className="text-center mb-3 sm:mb-4 relative">
                 <motion.div
-                  whileHover={{ scale: 1.15, rotate: 5 }}
+                  whileHover={isMobile ? undefined : { scale: 1.15, rotate: 5 }}
                   transition={{ type: "spring", stiffness: 300 }}
                   className="relative inline-block"
                 >
-                  {/* Glow effect - animated */}
-                  <motion.div
-                    animate={{
-                      scale: [1, 1.1],
-                      opacity: [0.4, 0.7],
-                    }}
-                    transition={{
-                      duration: 3,
-                      repeat: 2,
-                      repeatType: "reverse",
-                      ease: "easeInOut"
-                    }}
-                    className={`absolute inset-0 bg-gradient-to-r ${level.color} rounded-full blur-xl`}
-                    style={{ transform: 'scale(1.3)' }}
-                  ></motion.div>
+                  {/* Glow effect (animated on desktop, static on mobile) */}
+                  {isMobile ? (
+                    <div
+                      className={`absolute inset-0 bg-gradient-to-r ${level.color} rounded-full blur-xl`}
+                      style={{ transform: 'scale(1.3)', opacity: 0.55 }}
+                    />
+                  ) : (
+                    <motion.div
+                      animate={{
+                        scale: [1, 1.1],
+                        opacity: [0.4, 0.7],
+                      }}
+                      transition={{
+                        duration: 3,
+                        repeat: 2,
+                        repeatType: "reverse",
+                        ease: "easeInOut"
+                      }}
+                      className={`absolute inset-0 bg-gradient-to-r ${level.color} rounded-full blur-xl`}
+                      style={{ transform: 'scale(1.3)' }}
+                    />
+                  )}
                   
                   {/* Level Badge - Large and Prominent */}
                   <motion.img 
                     src={level.levelBadge} 
                     alt={`${level.name} Level Badge`}
                     className="relative z-10 w-20 h-20 sm:w-28 sm:h-28 md:w-32 md:h-32 lg:w-36 lg:h-36 object-contain drop-shadow-2xl"
-                    whileHover={{ 
-                      scale: 1.2,
-                      rotate: [0, -5, 5, -5, 0],
-                    }}
+                    whileHover={isMobile ? undefined : { scale: 1.2, rotate: [0, -5, 5, -5, 0] }}
                     transition={{ 
                       scale: { type: "spring", stiffness: 300 },
                       rotate: { duration: 0.5 }
@@ -232,7 +248,7 @@ const LevelsBadges = () => {
                   {/* Achievement Badge Overlay - Smaller badge */}
                   <motion.div
                     className="absolute -bottom-2 -right-2 sm:-bottom-3 sm:-right-3 z-20"
-                    whileHover={{ scale: 1.3, rotate: 20 }}
+                    whileHover={isMobile ? undefined : { scale: 1.3, rotate: 20 }}
                     transition={{ type: "spring", stiffness: 400 }}
                   >
                     <img
@@ -391,7 +407,7 @@ const LevelsBadges = () => {
                       duration: badgeDuration,
                       ease: "easeOut"
                     }}
-                    whileHover={{ scale: 1.1 }}
+                    whileHover={isMobile ? undefined : { scale: 1.1 }}
                     style={{ width: '20%', minWidth: '80px' }}
                   >
                   {/* Glow effect when line reaches */}
@@ -448,11 +464,15 @@ const LevelsBadges = () => {
                         },
                         opacity: { duration: 0.3 }
                       }}
-                      whileHover={{ 
-                        scale: 1.1,
-                        rotate: showAchievementBadges ? 360 : -5,
-                        transition: { rotate: { duration: 0.6 } }
-                      }}
+                      whileHover={
+                        isMobile
+                          ? undefined
+                          : {
+                              scale: 1.1,
+                              rotate: showAchievementBadges ? 360 : -5,
+                              transition: { rotate: { duration: 0.6 } }
+                            }
+                      }
                     />
                     
                     {/* Pulse ring when line reaches */}

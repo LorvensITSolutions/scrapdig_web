@@ -3,6 +3,9 @@ import { motion } from 'framer-motion'
 
 const HowItWorks = () => {
   const [currentSlide, setCurrentSlide] = useState(0)
+  const [isMobile, setIsMobile] = useState(() =>
+    typeof window !== 'undefined' ? window.matchMedia('(max-width: 640px)').matches : false
+  )
   
   const steps = [
     {
@@ -116,12 +119,23 @@ const HowItWorks = () => {
 
   // Auto-scroll carousel - slower speed
   useEffect(() => {
+    if (isMobile) return undefined
+
     const interval = setInterval(() => {
       setCurrentSlide((prev) => (prev + 1) % totalSlides)
     }, 8000) // Change slide every 8 seconds (slower)
 
     return () => clearInterval(interval)
-  }, [totalSlides])
+  }, [totalSlides, isMobile])
+
+  useEffect(() => {
+    if (typeof window === 'undefined') return undefined
+
+    const mediaQuery = window.matchMedia('(max-width: 640px)')
+    const handleBreakpointChange = (event) => setIsMobile(event.matches)
+    mediaQuery.addEventListener('change', handleBreakpointChange)
+    return () => mediaQuery.removeEventListener('change', handleBreakpointChange)
+  }, [])
 
   return (
     <section id="how-it-works" className="py-24 bg-gradient-to-br from-gray-900 via-emerald-950 to-gray-900 relative overflow-hidden">
@@ -155,7 +169,7 @@ const HowItWorks = () => {
           <motion.button
             onClick={goToPrevious}
             className="absolute left-0 top-1/2 -translate-y-1/2 -translate-x-4 sm:-translate-x-8 md:-translate-x-12 z-20 bg-white/10 backdrop-blur-md hover:bg-white/20 rounded-full p-3 sm:p-4 shadow-lg border border-white/20 transition-all duration-300 group"
-            whileHover={{ scale: 1.1, x: -5 }}
+            whileHover={isMobile ? undefined : { scale: 1.1, x: -5 }}
             whileTap={{ scale: 0.95 }}
             initial={{ opacity: 0, x: -20 }}
             animate={{ opacity: 1, x: 0 }}
@@ -175,7 +189,7 @@ const HowItWorks = () => {
           <motion.button
             onClick={goToNext}
             className="absolute right-0 top-1/2 -translate-y-1/2 translate-x-4 sm:translate-x-8 md:translate-x-12 z-20 bg-white/10 backdrop-blur-md hover:bg-white/20 rounded-full p-3 sm:p-4 shadow-lg border border-white/20 transition-all duration-300 group"
-            whileHover={{ scale: 1.1, x: 5 }}
+            whileHover={isMobile ? undefined : { scale: 1.1, x: 5 }}
             whileTap={{ scale: 0.95 }}
             initial={{ opacity: 0, x: 20 }}
             animate={{ opacity: 1, x: 0 }}
@@ -207,33 +221,43 @@ const HowItWorks = () => {
                       viewport={{ once: true }}
                       transition={{ delay: index * 0.15, duration: 0.6, type: "spring" }}
                       className={`group relative bg-gradient-to-br ${step.color} rounded-3xl p-8 h-full cursor-pointer overflow-hidden`}
-                      whileHover={{ scale: 1.08, y: -12, rotateY: 5 }}
+                      whileHover={isMobile ? undefined : { scale: 1.08, y: -12, rotateY: 5 }}
                       style={{
                         boxShadow: `0 20px 60px ${step.glowColor}, 0 0 0 1px rgba(255, 255, 255, 0.1) inset`
                       }}
                     >
                       {/* Animated background glow */}
-                      <motion.div
-                        className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500"
-                        style={{
-                          background: `radial-gradient(circle at center, ${step.glowColor}, transparent 70%)`,
-                          filter: 'blur(40px)'
-                        }}
-                        animate={{
-                          scale: [1, 1.2, 1],
-                          opacity: [0, 0.3, 0]
-                        }}
-                        transition={{
-                          duration: 3,
-                          repeat: 2,
-                          ease: "easeInOut"
-                        }}
-                      />
+                      {isMobile ? (
+                        <div
+                          className="absolute inset-0 opacity-25"
+                          style={{
+                            background: `radial-gradient(circle at center, ${step.glowColor}, transparent 70%)`,
+                            filter: 'blur(40px)'
+                          }}
+                        />
+                      ) : (
+                        <motion.div
+                          className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500"
+                          style={{
+                            background: `radial-gradient(circle at center, ${step.glowColor}, transparent 70%)`,
+                            filter: 'blur(40px)'
+                          }}
+                          animate={{
+                            scale: [1, 1.2, 1],
+                            opacity: [0, 0.3, 0]
+                          }}
+                          transition={{
+                            duration: 3,
+                            repeat: 2,
+                            ease: "easeInOut"
+                          }}
+                        />
+                      )}
 
                       {/* Number Badge */}
                       <motion.div 
                         className="absolute -top-5 -left-5 w-20 h-20 bg-white rounded-full flex items-center justify-center text-3xl font-bold shadow-2xl z-10"
-                        whileHover={{ rotate: 360, scale: 1.1 }}
+                      whileHover={isMobile ? undefined : { rotate: 360, scale: 1.1 }}
                         transition={{ duration: 0.5 }}
                       >
                         <span className={`bg-gradient-to-br ${step.color} bg-clip-text text-transparent font-extrabold`}>
@@ -244,7 +268,7 @@ const HowItWorks = () => {
                       {/* Icon with glow */}
                       <motion.div 
                         className="text-white mb-6 mt-6 relative z-10"
-                        whileHover={{ scale: 1.2, rotate: 10 }}
+                      whileHover={isMobile ? undefined : { scale: 1.2, rotate: 10 }}
                         transition={{ duration: 0.3 }}
                         style={{
                           filter: 'drop-shadow(0 0 20px rgba(255, 255, 255, 0.5))'
@@ -270,7 +294,7 @@ const HowItWorks = () => {
                       <motion.div 
                         className="absolute bottom-6 right-6 text-white"
                         initial={{ opacity: 0, x: -10 }}
-                        whileHover={{ opacity: 1, x: 0 }}
+                      whileHover={isMobile ? undefined : { opacity: 1, x: 0 }}
                         transition={{ duration: 0.3 }}
                       >
                         <svg className="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">

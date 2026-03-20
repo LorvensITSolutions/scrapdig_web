@@ -1,7 +1,21 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import { motion } from 'framer-motion'
 
 const Features = () => {
+  const [isMobile, setIsMobile] = useState(() =>
+    typeof window !== 'undefined' ? window.matchMedia('(max-width: 640px)').matches : false
+  )
+
+  useEffect(() => {
+    if (typeof window === 'undefined') return
+
+    const mediaQuery = window.matchMedia('(max-width: 640px)')
+    const handleBreakpointChange = (event) => setIsMobile(event.matches)
+    setIsMobile(mediaQuery.matches)
+    mediaQuery.addEventListener('change', handleBreakpointChange)
+    return () => mediaQuery.removeEventListener('change', handleBreakpointChange)
+  }, [])
+
   const mainFeatures = [
     {
       icon: (
@@ -142,7 +156,7 @@ const Features = () => {
               whileInView={{ opacity: 1, y: 0, scale: 1 }}
               viewport={{ once: true }}
               transition={{ delay: index * 0.1, duration: 0.5, type: "spring" }}
-              whileHover={{ y: -12, scale: 1.02, rotateY: 2 }}
+              whileHover={isMobile ? undefined : { y: -12, scale: 1.02, rotateY: 2 }}
               className="group relative"
             >
               <div
@@ -151,23 +165,33 @@ const Features = () => {
                   boxShadow: `0 20px 60px ${feature.glowColor}, 0 0 0 1px rgba(255, 255, 255, 0.1) inset`
                 }}
               >
-                {/* Animated background glow on hover */}
-                <motion.div
-                  className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500"
-                  style={{
-                    background: `radial-gradient(circle at center, ${feature.glowColor}, transparent 70%)`,
-                    filter: 'blur(40px)'
-                  }}
-                  animate={{
-                    scale: [1, 1.2, 1],
-                    opacity: [0, 0.3, 0]
-                  }}
-                  transition={{
-                    duration: 3,
-                    repeat: 2,
-                    ease: "easeInOut"
-                  }}
-                />
+                {/* Animated background glow (disabled on mobile) */}
+                {isMobile ? (
+                  <div
+                    className="absolute inset-0 opacity-25"
+                    style={{
+                      background: `radial-gradient(circle at center, ${feature.glowColor}, transparent 70%)`,
+                      filter: 'blur(40px)',
+                    }}
+                  />
+                ) : (
+                  <motion.div
+                    className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500"
+                    style={{
+                      background: `radial-gradient(circle at center, ${feature.glowColor}, transparent 70%)`,
+                      filter: 'blur(40px)',
+                    }}
+                    animate={{
+                      scale: [1, 1.2, 1],
+                      opacity: [0, 0.3, 0],
+                    }}
+                    transition={{
+                      duration: 3,
+                      repeat: 2,
+                      ease: "easeInOut",
+                    }}
+                  />
+                )}
 
                 {/* Decorative corner accent */}
                 <div className="absolute top-0 right-0 w-32 h-32 bg-white/10 rounded-bl-full"></div>
@@ -177,7 +201,7 @@ const Features = () => {
                   {/* Icon with enhanced styling */}
                   <motion.div
                     className={`w-20 h-20 bg-gradient-to-br ${feature.gradient} rounded-2xl flex items-center justify-center mb-6 shadow-2xl group-hover:scale-110 group-hover:rotate-6 transition-all duration-300`}
-                    whileHover={{ scale: 1.15, rotate: 10 }}
+                    whileHover={isMobile ? undefined : { scale: 1.15, rotate: 10 }}
                     style={{
                       filter: 'drop-shadow(0 10px 30px rgba(0, 0, 0, 0.2))'
                     }}
@@ -224,7 +248,7 @@ const Features = () => {
           {additionalFeatures.map((feature, index) => (
             <motion.span
               key={index}
-              whileHover={{ scale: 1.05, y: -2 }}
+              whileHover={isMobile ? undefined : { scale: 1.05, y: -2 }}
               className="px-6 py-3 bg-gradient-to-r from-white to-gray-50 backdrop-blur-md border-2 border-emerald-200/50 hover:border-emerald-400/70 text-gray-800 hover:text-emerald-700 rounded-full text-sm font-semibold transition-all duration-300 cursor-default shadow-md hover:shadow-lg"
             >
               {feature}
