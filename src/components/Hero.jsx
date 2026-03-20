@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import heroImage from '../assets/web_2.png'
 import heroVideo from '../assets/hero.mp4'
@@ -6,6 +6,20 @@ import ecoCoinImage from '../assets/eco_coin_scrapdig.png'
 
 const Hero = () => {
   const [isCoinModalOpen, setIsCoinModalOpen] = useState(false)
+  const [isDesktop, setIsDesktop] = useState(() =>
+    typeof window !== 'undefined' ? window.matchMedia('(min-width: 1024px)').matches : false
+  )
+
+  useEffect(() => {
+    if (typeof window === 'undefined') return undefined
+
+    const mediaQuery = window.matchMedia('(min-width: 1024px)')
+    const handleBreakpointChange = (event) => setIsDesktop(event.matches)
+    setIsDesktop(mediaQuery.matches)
+
+    mediaQuery.addEventListener('change', handleBreakpointChange)
+    return () => mediaQuery.removeEventListener('change', handleBreakpointChange)
+  }, [])
   const stats = [
     { value: '5', label: 'Level System', icon: '🏆', gradient: 'from-yellow-400 to-orange-500', bg: 'from-yellow-50 to-orange-50' },
     { value: '100%', label: 'Eco-Friendly', icon: '🌱', gradient: 'from-green-400 to-emerald-500', bg: 'from-green-50 to-emerald-50' },
@@ -197,6 +211,7 @@ const Hero = () => {
             </motion.div>
 
             {/* Mobile Video - Shows after buttons on mobile */}
+            {!isDesktop && (
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
@@ -207,17 +222,20 @@ const Hero = () => {
                 <motion.div
                   className="relative bg-gradient-to-br from-slate-800/50 to-slate-900/50 backdrop-blur-md rounded-2xl p-2 border border-emerald-500/30 shadow-2xl"
                 >
-                  <motion.video
+                  <video
                     src={heroVideo}
                     autoPlay
                     loop
                     muted
                     playsInline
-                    className="w-full h-auto max-w-full rounded-2xl object-cover"
+                    preload="auto"
+                    poster={heroImage}
+                    className="w-full h-auto max-w-full rounded-2xl object-cover [transform:translateZ(0)]"
                   />
                 </motion.div>
               </div>
             </motion.div>
+            )}
 
             {/* Enhanced Key Stats */}
             <motion.div
@@ -306,6 +324,7 @@ const Hero = () => {
           </motion.div>
 
           {/* Right Video - Desktop Only */}
+          {isDesktop && (
           <motion.div
             initial={{ opacity: 0, x: 50, scale: 0.9 }}
             animate={{ opacity: 1, x: 0, scale: 1 }}
@@ -314,97 +333,41 @@ const Hero = () => {
           >
             <div className="relative z-10">
               {/* Glow effect behind video */}
-              <motion.div
-                className="absolute inset-0 bg-gradient-to-r from-emerald-500/30 to-teal-500/30 rounded-3xl blur-2xl"
-                animate={{
-                  opacity: [0.3, 0.5, 0.3],
-                  scale: [1, 1.05, 1]
-                }}
-                transition={{
-                  duration: 4,
-                  repeat: Infinity,
-                  ease: "easeInOut"
-                }}
-              />
-              <motion.div
-                className="relative bg-gradient-to-br from-slate-800/50 to-slate-900/50 backdrop-blur-md rounded-2xl p-2 border border-emerald-500/30 shadow-2xl"
-                whileHover={{ scale: 1.02 }}
-              >
-                <motion.video
+              <div className="absolute inset-0 bg-gradient-to-r from-emerald-500/30 to-teal-500/30 rounded-3xl blur-2xl opacity-40" />
+              <div className="relative bg-gradient-to-br from-slate-800/50 to-slate-900/50 backdrop-blur-md rounded-2xl p-2 border border-emerald-500/30 shadow-2xl">
+                <video
                   src={heroVideo}
                   autoPlay
                   loop
                   muted
                   playsInline
-                  className="w-full h-auto max-w-full rounded-2xl object-cover"
-                  whileHover={{ scale: 1.03 }}
-                  transition={{ duration: 0.3 }}
+                  preload="auto"
+                  poster={heroImage}
+                  disablePictureInPicture
+                  disableRemotePlayback
+                  className="w-full h-auto max-w-full rounded-2xl object-cover [transform:translateZ(0)]"
                 />
-              </motion.div>
+              </div>
               
               {/* Enhanced Floating badges */}
-              <motion.div
-                animate={{
-                  y: [0, -10, 0],
-                  rotate: [0, 5, -5, 0]
-                }}
-                transition={{
-                  duration: 4,
-                  repeat: Infinity,
-                  ease: "easeInOut"
-                }}
-                className="absolute -top-2 -left-2 sm:-top-4 sm:-left-4 bg-gradient-to-br from-yellow-400 to-orange-500 rounded-lg sm:rounded-xl p-2 sm:p-3 shadow-2xl border-2 border-yellow-300/50 backdrop-blur-sm hidden sm:block"
-                whileHover={{ scale: 1.1, rotate: 5 }}
-              >
-                <motion.div 
-                  className="text-xl sm:text-2xl mb-0.5 sm:mb-1"
-                  animate={{ rotate: [0, 360] }}
-                  transition={{ duration: 20, repeat: Infinity, ease: "linear" }}
-                >
+              <div className="absolute -top-2 -left-2 sm:-top-4 sm:-left-4 bg-gradient-to-br from-yellow-400 to-orange-500 rounded-lg sm:rounded-xl p-2 sm:p-3 shadow-2xl border-2 border-yellow-300/50 backdrop-blur-sm hidden sm:block">
+                <div className="text-xl sm:text-2xl mb-0.5 sm:mb-1">
                   🏆
-                </motion.div>
+                </div>
                 <div className="text-[10px] sm:text-xs font-bold text-white">Level Up</div>
                 <div className="text-[8px] sm:text-[10px] text-yellow-100">Earn Rewards</div>
-                {/* Glow effect */}
-                <motion.div
-                  className="absolute inset-0 bg-gradient-to-br from-yellow-400/50 to-orange-500/50 rounded-xl blur-xl -z-10"
-                  animate={{ opacity: [0.5, 0.8, 0.5] }}
-                  transition={{ duration: 2, repeat: Infinity }}
-                />
-              </motion.div>
+              </div>
               
-              <motion.div
-                animate={{
-                  y: [0, 10, 0],
-                  rotate: [0, -5, 5, 0]
-                }}
-                transition={{
-                  duration: 4,
-                  repeat: Infinity,
-                  ease: "easeInOut",
-                  delay: 1.5
-                }}
-                className="absolute -bottom-2 -right-2 sm:-bottom-4 sm:-right-4 bg-gradient-to-br from-emerald-400 to-teal-500 rounded-lg sm:rounded-xl p-2 sm:p-3 shadow-2xl border-2 border-emerald-300/50 backdrop-blur-sm hidden sm:block"
-                whileHover={{ scale: 1.1, rotate: -5 }}
-              >
-                <motion.div 
-                  className="text-xl sm:text-2xl mb-0.5 sm:mb-1"
-                  animate={{ scale: [1, 1.2, 1] }}
-                  transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
-                >
+              <div className="absolute -bottom-2 -right-2 sm:-bottom-4 sm:-right-4 bg-gradient-to-br from-emerald-400 to-teal-500 rounded-lg sm:rounded-xl p-2 sm:p-3 shadow-2xl border-2 border-emerald-300/50 backdrop-blur-sm hidden sm:block">
+                <div className="text-xl sm:text-2xl mb-0.5 sm:mb-1">
                   💰
-                </motion.div>
+                </div>
                 <div className="text-[10px] sm:text-xs font-bold text-white">Earn Coins</div>
                 <div className="text-[8px] sm:text-[10px] text-emerald-100">Shop Products</div>
-                {/* Glow effect */}
-                <motion.div
-                  className="absolute inset-0 bg-gradient-to-br from-emerald-400/50 to-teal-500/50 rounded-xl blur-xl -z-10"
-                  animate={{ opacity: [0.5, 0.8, 0.5] }}
-                  transition={{ duration: 2, repeat: Infinity, delay: 0.5 }}
-                />
-              </motion.div>
+              </div>
             </div>
           </motion.div>
+          )}
         </div>
       </div>
 
