@@ -224,12 +224,13 @@ const Hero = () => {
                 >
                   <video
                     src={heroVideo}
-                    autoPlay
-                    loop
+                    autoPlay={false}
+                    loop={false}
                     muted
                     playsInline
-                    preload="auto"
+                    preload="metadata"
                     poster={heroImage}
+                    controls={false}
                     className="w-full h-auto max-w-full rounded-2xl object-cover [transform:translateZ(0)]"
                   />
                 </motion.div>

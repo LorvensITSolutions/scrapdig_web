@@ -39,3 +39,11 @@ input, textarea, select {
   font-size: 16px !important;
 }
 
+/* Mobile performance: backdrop-filter is expensive and can cause stutter */
+@media (max-width: 640px) {
+  [class*="backdrop-blur"] {
+    backdrop-filter: none !important;
+    -webkit-backdrop-filter: none !important;
+  }
+}
+
