@@ -1,6 +1,7 @@
 import React, { Suspense, lazy } from 'react'
 import { BrowserRouter, Routes, Route, useLocation } from 'react-router-dom'
-import { AnimatePresence, motion } from 'framer-motion'
+import { AnimatePresence, motion, MotionConfig } from 'framer-motion'
+import { useMotionLite } from './hooks/useMotionLite'
 
 const HomePage = lazy(() => import('./pages/HomePage'))
 const PrivacyPolicy = lazy(() => import('./pages/PrivacyPolicy'))
@@ -39,10 +40,14 @@ const AnimatedRoutes = () => {
 }
 
 function App() {
+  const motionLite = useMotionLite()
+
   return (
-    <BrowserRouter>
-      <AnimatedRoutes />
-    </BrowserRouter>
+    <MotionConfig reducedMotion={motionLite ? 'always' : 'user'}>
+      <BrowserRouter>
+        <AnimatedRoutes />
+      </BrowserRouter>
+    </MotionConfig>
   )
 }
 

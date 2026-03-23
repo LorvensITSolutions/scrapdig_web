@@ -1,7 +1,9 @@
 import React, { useState } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
+import { useMotionLite } from '../hooks/useMotionLite'
 
 const HelpCenter = () => {
+  const motionLite = useMotionLite()
   const [openCategory, setOpenCategory] = useState(null)
   const [openQuestion, setOpenQuestion] = useState(null)
   const [searchQuery, setSearchQuery] = useState('')
@@ -305,17 +307,17 @@ const HelpCenter = () => {
     <section id="help-center" className="py-24 bg-gradient-to-br from-slate-900 via-emerald-950 to-slate-900 relative overflow-hidden">
       {/* Background decorative elements */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
-        <div className="absolute bottom-0 left-1/4 w-96 h-96 bg-emerald-600/5 rounded-full blur-3xl"></div>
-        <div className="absolute bottom-0 right-1/4 w-96 h-96 bg-teal-600/5 rounded-full blur-3xl"></div>
+        <div className="absolute bottom-0 left-1/4 w-72 h-72 sm:w-96 sm:h-96 bg-emerald-600/5 rounded-full blur-xl sm:blur-3xl" />
+        <div className="absolute bottom-0 right-1/4 w-72 h-72 sm:w-96 sm:h-96 bg-teal-600/5 rounded-full blur-xl sm:blur-3xl" />
       </div>
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         {/* Section Header */}
         <motion.div
-          initial={{ opacity: 0, y: -20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.5 }}
+          initial={motionLite ? { opacity: 1, y: 0 } : { opacity: 0, y: -20 }}
+          whileInView={motionLite ? undefined : { opacity: 1, y: 0 }}
+          viewport={motionLite ? undefined : { once: true }}
+          transition={{ duration: motionLite ? 0 : 0.5 }}
           className="text-center mb-12"
         >
           <h2 className="text-5xl md:text-6xl font-bold text-white mb-4 tracking-tight">
@@ -349,10 +351,13 @@ const HelpCenter = () => {
           {filteredCategories.map((category, categoryIndex) => (
             <motion.div
               key={category.id}
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ delay: categoryIndex * 0.1, duration: 0.4 }}
+              initial={motionLite ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
+              whileInView={motionLite ? undefined : { opacity: 1, y: 0 }}
+              viewport={motionLite ? undefined : { once: true }}
+              transition={{
+                delay: motionLite ? 0 : categoryIndex * 0.1,
+                duration: motionLite ? 0 : 0.4,
+              }}
               className="bg-slate-800/50 backdrop-blur-md rounded-2xl shadow-lg border border-emerald-500/20 overflow-hidden hover:shadow-xl hover:border-emerald-500/30 transition-all duration-300"
             >
               {/* Category Header */}
@@ -369,28 +374,22 @@ const HelpCenter = () => {
                     <p className="text-sm text-gray-400 mt-1">{category.questions.length} question{category.questions.length !== 1 ? 's' : ''}</p>
                   </div>
                 </div>
-                <motion.div
-                  animate={{ rotate: openCategory === category.id ? 180 : 0 }}
-                  transition={{ duration: 0.3 }}
-                  className="flex-shrink-0 ml-4"
+                <div
+                  className={`flex-shrink-0 ml-4 transition-transform duration-200 ease-out ${
+                    openCategory === category.id ? 'rotate-180' : 'rotate-0'
+                  }`}
                 >
                   <svg className="w-6 h-6 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
                   </svg>
-                </motion.div>
+                </div>
               </button>
 
-              {/* Category Questions */}
-              <AnimatePresence>
-                {openCategory === category.id && (
-                  <motion.div
-                    initial={{ height: 0, opacity: 0 }}
-                    animate={{ height: 'auto', opacity: 1 }}
-                    exit={{ height: 0, opacity: 0 }}
-                    transition={{ duration: 0.3 }}
-                    className="overflow-hidden"
-                  >
-                    <div className="px-6 pb-4 space-y-3">
+              {/* Category Questions — avoid height:auto layout animations on small screens (major jank source) */}
+              {motionLite ? (
+                openCategory === category.id && (
+                  <div className="overflow-hidden border-t border-gray-700/40">
+                    <div className="px-6 pb-4 space-y-3 pt-2">
                       {category.questions.map((qa, qIndex) => {
                         const questionId = `${category.id}-${qIndex}`
                         const isOpen = openQuestion === questionId
@@ -405,48 +404,108 @@ const HelpCenter = () => {
                               className="w-full px-5 py-4 text-left flex items-start justify-between hover:bg-slate-700/30 transition-colors"
                             >
                               <span className="font-semibold text-white pr-4 flex-1">{qa.q}</span>
-                              <motion.div
-                                animate={{ rotate: isOpen ? 180 : 0 }}
-                                transition={{ duration: 0.2 }}
-                                className="flex-shrink-0"
+                              <div
+                                className={`flex-shrink-0 transition-transform duration-200 ${
+                                  isOpen ? 'rotate-180' : ''
+                                }`}
                               >
-                                <svg className={`w-5 h-5 ${isOpen ? 'text-emerald-400' : 'text-gray-400'}`} fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <svg
+                                  className={`w-5 h-5 ${isOpen ? 'text-emerald-400' : 'text-gray-400'}`}
+                                  fill="none"
+                                  stroke="currentColor"
+                                  viewBox="0 0 24 24"
+                                >
                                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
                                 </svg>
-                              </motion.div>
+                              </div>
                             </button>
-                            <AnimatePresence>
-                              {isOpen && (
-                                <motion.div
-                                  initial={{ height: 0, opacity: 0 }}
-                                  animate={{ height: 'auto', opacity: 1 }}
-                                  exit={{ height: 0, opacity: 0 }}
-                                  transition={{ duration: 0.2 }}
-                                  className="overflow-hidden"
-                                >
-                                  <div className="px-5 pb-4 pt-2 bg-slate-700/30">
-                                    <p className="text-gray-300 leading-relaxed">{qa.a}</p>
-                                  </div>
-                                </motion.div>
-                              )}
-                            </AnimatePresence>
+                            {isOpen && (
+                              <div className="px-5 pb-4 pt-2 bg-slate-700/30 border-t border-gray-700/30">
+                                <p className="text-gray-300 leading-relaxed">{qa.a}</p>
+                              </div>
+                            )}
                           </div>
                         )
                       })}
                     </div>
-                  </motion.div>
-                )}
-              </AnimatePresence>
+                  </div>
+                )
+              ) : (
+                <AnimatePresence>
+                  {openCategory === category.id && (
+                    <motion.div
+                      initial={{ height: 0, opacity: 0 }}
+                      animate={{ height: 'auto', opacity: 1 }}
+                      exit={{ height: 0, opacity: 0 }}
+                      transition={{ duration: 0.3 }}
+                      className="overflow-hidden"
+                    >
+                      <div className="px-6 pb-4 space-y-3">
+                        {category.questions.map((qa, qIndex) => {
+                          const questionId = `${category.id}-${qIndex}`
+                          const isOpen = openQuestion === questionId
+
+                          return (
+                            <div
+                              key={qIndex}
+                              className="border border-gray-700/50 rounded-xl overflow-hidden hover:border-emerald-500/50 transition-colors"
+                            >
+                              <button
+                                onClick={() => toggleQuestion(questionId)}
+                                className="w-full px-5 py-4 text-left flex items-start justify-between hover:bg-slate-700/30 transition-colors"
+                              >
+                                <span className="font-semibold text-white pr-4 flex-1">{qa.q}</span>
+                                <motion.div
+                                  animate={{ rotate: isOpen ? 180 : 0 }}
+                                  transition={{ duration: 0.2 }}
+                                  className="flex-shrink-0"
+                                >
+                                  <svg
+                                    className={`w-5 h-5 ${isOpen ? 'text-emerald-400' : 'text-gray-400'}`}
+                                    fill="none"
+                                    stroke="currentColor"
+                                    viewBox="0 0 24 24"
+                                  >
+                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+                                  </svg>
+                                </motion.div>
+                              </button>
+                              <AnimatePresence>
+                                {isOpen && (
+                                  <motion.div
+                                    initial={{ height: 0, opacity: 0 }}
+                                    animate={{ height: 'auto', opacity: 1 }}
+                                    exit={{ height: 0, opacity: 0 }}
+                                    transition={{ duration: 0.2 }}
+                                    className="overflow-hidden"
+                                  >
+                                    <div className="px-5 pb-4 pt-2 bg-slate-700/30">
+                                      <p className="text-gray-300 leading-relaxed">{qa.a}</p>
+                                    </div>
+                                  </motion.div>
+                                )}
+                              </AnimatePresence>
+                            </div>
+                          )
+                        })}
+                      </div>
+                    </motion.div>
+                  )}
+                </AnimatePresence>
+              )}
             </motion.div>
           ))}
         </div>
 
         {/* Still Need Help Section */}
         <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ delay: 0.5, duration: 0.5 }}
+          initial={motionLite ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
+          whileInView={motionLite ? undefined : { opacity: 1, y: 0 }}
+          viewport={motionLite ? undefined : { once: true }}
+          transition={{
+            delay: motionLite ? 0 : 0.5,
+            duration: motionLite ? 0 : 0.5,
+          }}
           className="mt-16 text-center"
         >
           <div className="bg-slate-800/70 backdrop-blur-md rounded-2xl p-8 md:p-12 text-white shadow-2xl border border-emerald-500/30 relative overflow-hidden">

@@ -73,9 +73,10 @@ const Hero = () => {
           </>
         ) : (
           <>
-            <div className="absolute top-10 right-10 w-[200px] h-[200px] bg-emerald-500/20 rounded-full blur-3xl opacity-70" />
-            <div className="absolute bottom-10 left-10 w-[200px] h-[200px] bg-teal-500/20 rounded-full blur-3xl opacity-60" />
-            <div className="absolute top-1/2 left-1/2 w-[300px] h-[300px] -translate-x-1/2 -translate-y-1/2 bg-green-500/10 rounded-full blur-3xl opacity-50" />
+            {/* Lighter blur on small screens — full blur-3xl is very GPU-heavy on phones */}
+            <div className="absolute top-10 right-10 w-[160px] h-[160px] bg-emerald-500/20 rounded-full blur-xl opacity-70" />
+            <div className="absolute bottom-10 left-10 w-[160px] h-[160px] bg-teal-500/20 rounded-full blur-xl opacity-60" />
+            <div className="absolute top-1/2 left-1/2 w-[220px] h-[220px] -translate-x-1/2 -translate-y-1/2 bg-green-500/10 rounded-full blur-xl opacity-50" />
           </>
         )}
         {/* Grid pattern overlay */}
@@ -88,14 +89,18 @@ const Hero = () => {
           <motion.div
             initial={{ opacity: 0, x: -50 }}
             animate={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.8 }}
+            transition={{ duration: isDesktop ? 0.8 : 0.4, ease: 'easeOut' }}
             className="text-center lg:text-left space-y-3 sm:space-y-4 z-10"
           >
             <div className="space-y-2 sm:space-y-3">
               <motion.div
                 initial={{ opacity: 0, y: 20, scale: 0.9 }}
                 animate={{ opacity: 1, y: 0, scale: 1 }}
-                transition={{ delay: 0.2, type: "spring", stiffness: 200 }}
+                transition={
+                  isDesktop
+                    ? { delay: 0.2, type: 'spring', stiffness: 200 }
+                    : { delay: 0.05, duration: 0.35, ease: [0.25, 0.1, 0.25, 1] }
+                }
                 className="inline-block"
               >
                 <motion.span 
@@ -122,7 +127,11 @@ const Hero = () => {
               <motion.h1
                 initial={{ opacity: 0, y: 30 }}
                 animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.3, duration: 0.8 }}
+                transition={{
+                  delay: isDesktop ? 0.3 : 0.08,
+                  duration: isDesktop ? 0.8 : 0.35,
+                  ease: 'easeOut',
+                }}
                 className="text-3xl sm:text-4xl md:text-5xl lg:text-5xl xl:text-6xl font-extrabold leading-tight"
               >
                 <span className="text-white">Transform Waste into</span>
@@ -153,7 +162,7 @@ const Hero = () => {
               <motion.p
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.4 }}
+                transition={{ delay: isDesktop ? 0.4 : 0.12, duration: isDesktop ? undefined : 0.3, ease: 'easeOut' }}
                 className="text-sm sm:text-base lg:text-lg text-gray-300 leading-relaxed max-w-2xl mx-auto lg:mx-0 px-2 sm:px-0"
               >
                 ScrapDig is India's innovative recycling platform that rewards you for every scrap you recycle. Join thousands of eco-warriors building a sustainable future while earning coins, leveling up, and making a real environmental impact.
@@ -163,7 +172,7 @@ const Hero = () => {
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.5 }}
+              transition={{ delay: isDesktop ? 0.5 : 0.14, duration: isDesktop ? undefined : 0.3, ease: 'easeOut' }}
               className="flex flex-col sm:flex-row gap-2 sm:gap-3 justify-center lg:justify-start px-2 sm:px-0"
             >
 <motion.a 
@@ -235,11 +244,11 @@ const Hero = () => {
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.55 }}
+              transition={{ delay: isDesktop ? 0.55 : 0.16, duration: isDesktop ? undefined : 0.3, ease: 'easeOut' }}
               className="relative block lg:hidden mt-6 px-2 sm:px-0"
             >
               <div className="relative z-10">
-                <motion.div
+                <div
                   className="relative bg-gradient-to-br from-slate-800/50 to-slate-900/50 backdrop-blur-md rounded-2xl p-2 border border-emerald-500/30 shadow-2xl"
                 >
                   <video
@@ -253,7 +262,7 @@ const Hero = () => {
                     controls={false}
                     className="w-full h-auto max-w-full rounded-2xl object-cover [transform:translateZ(0)]"
                   />
-                </motion.div>
+                </div>
               </div>
             </motion.div>
             )}
@@ -262,7 +271,7 @@ const Hero = () => {
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.6 }}
+              transition={{ delay: isDesktop ? 0.6 : 0.18, duration: isDesktop ? undefined : 0.3, ease: 'easeOut' }}
               className="grid grid-cols-2 lg:grid-cols-4 gap-2 sm:gap-3 pt-3 sm:pt-4"
             >
               {stats.map((stat, index) => (
@@ -270,7 +279,11 @@ const Hero = () => {
                   key={index}
                   initial={{ opacity: 0, scale: 0.8, y: 20 }}
                   animate={{ opacity: 1, scale: 1, y: 0 }}
-                  transition={{ delay: 0.7 + index * 0.1, type: "spring", stiffness: 200 }}
+                  transition={
+                    isDesktop
+                      ? { delay: 0.7 + index * 0.1, type: 'spring', stiffness: 200 }
+                      : { delay: 0.08 + index * 0.05, duration: 0.35, ease: 'easeOut' }
+                  }
                   whileHover={isDesktop ? { scale: 1.1, y: -5 } : undefined}
                   className="relative group text-center lg:text-left bg-gradient-to-br from-slate-800/80 to-slate-900/80 backdrop-blur-md rounded-lg sm:rounded-xl p-2.5 sm:p-3 lg:p-4 border border-emerald-500/30 hover:border-emerald-400/60 transition-all shadow-xl overflow-hidden"
                 >
@@ -367,7 +380,7 @@ const Hero = () => {
           <motion.div
             initial={{ opacity: 0, x: 50, scale: 0.9 }}
             animate={{ opacity: 1, x: 0, scale: 1 }}
-            transition={{ duration: 0.8, delay: 0.3, type: "spring", stiffness: 100 }}
+            transition={{ duration: 0.75, delay: 0.25, type: 'spring', stiffness: 100 }}
             className="relative hidden lg:block ml-4 xl:ml-8"
           >
             <div className="relative z-10">
@@ -424,10 +437,22 @@ const Hero = () => {
             >
               {/* Modal Content */}
               <motion.div
-                initial={{ opacity: 0, scale: 0.5, rotate: -180 }}
+                initial={
+                  isDesktop
+                    ? { opacity: 0, scale: 0.5, rotate: -180 }
+                    : { opacity: 0, scale: 0.94 }
+                }
                 animate={{ opacity: 1, scale: 1, rotate: 0 }}
-                exit={{ opacity: 0, scale: 0.5, rotate: 180 }}
-                transition={{ type: "spring", stiffness: 200, damping: 20 }}
+                exit={
+                  isDesktop
+                    ? { opacity: 0, scale: 0.5, rotate: 180 }
+                    : { opacity: 0, scale: 0.94 }
+                }
+                transition={
+                  isDesktop
+                    ? { type: 'spring', stiffness: 200, damping: 20 }
+                    : { duration: 0.22, ease: 'easeOut' }
+                }
                 className="relative"
                 onClick={(e) => e.stopPropagation()}
               >
@@ -475,19 +500,23 @@ const Hero = () => {
                   </p>
                 </motion.div>
 
-                {/* Glow Effect */}
-                <motion.div
-                  className="absolute inset-0 bg-gradient-to-r from-emerald-400/30 via-teal-400/30 to-emerald-400/30 rounded-full blur-3xl -z-10"
-                  animate={{
-                    scale: [1, 1.2, 1],
-                    opacity: [0.3, 0.5, 0.3]
-                  }}
-                  transition={{
-                    duration: 3,
-                    repeat: 2,
-                    ease: "easeInOut"
-                  }}
-                />
+                {/* Glow Effect — static on mobile */}
+                {isDesktop ? (
+                  <motion.div
+                    className="absolute inset-0 bg-gradient-to-r from-emerald-400/30 via-teal-400/30 to-emerald-400/30 rounded-full blur-3xl -z-10"
+                    animate={{
+                      scale: [1, 1.2, 1],
+                      opacity: [0.3, 0.5, 0.3],
+                    }}
+                    transition={{
+                      duration: 3,
+                      repeat: 2,
+                      ease: 'easeInOut',
+                    }}
+                  />
+                ) : (
+                  <div className="absolute inset-0 bg-gradient-to-r from-emerald-400/25 via-teal-400/25 to-emerald-400/25 rounded-full blur-xl -z-10 opacity-40" />
+                )}
               </motion.div>
             </motion.div>
           </>

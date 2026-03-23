@@ -1,7 +1,9 @@
 import React, { useEffect, useState } from 'react'
 import { motion } from 'framer-motion'
+import { useMotionLite } from '../hooks/useMotionLite'
 
 const Features = () => {
+  const motionLite = useMotionLite()
   const [isMobile, setIsMobile] = useState(() =>
     typeof window !== 'undefined' ? window.matchMedia('(max-width: 640px)').matches : false
   )
@@ -133,10 +135,10 @@ const Features = () => {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         {/* Section Header */}
         <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.5 }}
+          initial={motionLite ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
+          whileInView={motionLite ? undefined : { opacity: 1, y: 0 }}
+          viewport={motionLite ? undefined : { once: true }}
+          transition={{ duration: motionLite ? 0 : 0.5 }}
           className="text-center mb-16"
         >
           <h2 className="text-4xl md:text-5xl lg:text-6xl font-bold text-gray-900 mb-4 tracking-tight">
@@ -152,11 +154,19 @@ const Features = () => {
           {mainFeatures.map((feature, index) => (
             <motion.div
               key={index}
-              initial={{ opacity: 0, y: 30, scale: 0.9 }}
-              whileInView={{ opacity: 1, y: 0, scale: 1 }}
-              viewport={{ once: true }}
-              transition={{ delay: index * 0.1, duration: 0.5, type: "spring" }}
-              whileHover={isMobile ? undefined : { y: -12, scale: 1.02, rotateY: 2 }}
+              initial={
+                motionLite
+                  ? { opacity: 1, y: 0, scale: 1 }
+                  : { opacity: 0, y: 30, scale: 0.9 }
+              }
+              whileInView={motionLite ? undefined : { opacity: 1, y: 0, scale: 1 }}
+              viewport={motionLite ? undefined : { once: true, margin: '0px 0px -10% 0px' }}
+              transition={
+                motionLite
+                  ? { duration: 0 }
+                  : { delay: index * 0.08, duration: 0.45, ease: [0.25, 0.1, 0.25, 1] }
+              }
+              whileHover={isMobile || motionLite ? undefined : { y: -12, scale: 1.02, rotateY: 2 }}
               className="group relative"
             >
               <div
@@ -166,7 +176,7 @@ const Features = () => {
                 }}
               >
                 {/* Animated background glow (disabled on mobile) */}
-                {isMobile ? (
+                {isMobile || motionLite ? (
                   <div
                     className="absolute inset-0 opacity-25"
                     style={{
@@ -201,7 +211,7 @@ const Features = () => {
                   {/* Icon with enhanced styling */}
                   <motion.div
                     className={`w-20 h-20 bg-gradient-to-br ${feature.gradient} rounded-2xl flex items-center justify-center mb-6 shadow-2xl group-hover:scale-110 group-hover:rotate-6 transition-all duration-300`}
-                    whileHover={isMobile ? undefined : { scale: 1.15, rotate: 10 }}
+                    whileHover={isMobile || motionLite ? undefined : { scale: 1.15, rotate: 10 }}
                     style={{
                       filter: 'drop-shadow(0 10px 30px rgba(0, 0, 0, 0.2))'
                     }}
@@ -239,16 +249,16 @@ const Features = () => {
 
         {/* Additional Features - Enhanced */}
         <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ delay: 0.6, duration: 0.5 }}
+          initial={motionLite ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
+          whileInView={motionLite ? undefined : { opacity: 1, y: 0 }}
+          viewport={motionLite ? undefined : { once: true }}
+          transition={{ delay: motionLite ? 0 : 0.6, duration: motionLite ? 0 : 0.5 }}
           className="flex flex-wrap justify-center gap-4 pt-8 border-t-2 border-gray-200"
         >
           {additionalFeatures.map((feature, index) => (
             <motion.span
               key={index}
-              whileHover={isMobile ? undefined : { scale: 1.05, y: -2 }}
+              whileHover={isMobile || motionLite ? undefined : { scale: 1.05, y: -2 }}
               className="px-6 py-3 bg-gradient-to-r from-white to-gray-50 backdrop-blur-md border-2 border-emerald-200/50 hover:border-emerald-400/70 text-gray-800 hover:text-emerald-700 rounded-full text-sm font-semibold transition-all duration-300 cursor-default shadow-md hover:shadow-lg"
             >
               {feature}

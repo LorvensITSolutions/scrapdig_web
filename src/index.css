@@ -47,3 +47,10 @@ input, textarea, select {
   }
 }
 
+/* Native scroll often feels smoother than smooth-scroll on low-end phones */
+@media (max-width: 1023px) {
+  html {
+    scroll-behavior: auto;
+  }
+}
+

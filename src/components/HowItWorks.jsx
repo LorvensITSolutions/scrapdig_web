@@ -1,7 +1,9 @@
 import React, { useState, useEffect } from 'react'
 import { motion } from 'framer-motion'
+import { useMotionLite } from '../hooks/useMotionLite'
 
 const HowItWorks = () => {
+  const motionLite = useMotionLite()
   const [currentSlide, setCurrentSlide] = useState(0)
   const [isMobile, setIsMobile] = useState(() =>
     typeof window !== 'undefined' ? window.matchMedia('(max-width: 640px)').matches : false
@@ -141,18 +143,18 @@ const HowItWorks = () => {
     <section id="how-it-works" className="py-24 bg-gradient-to-br from-gray-900 via-emerald-950 to-gray-900 relative overflow-hidden">
       {/* Animated background elements */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
-        <div className="absolute top-0 left-1/4 w-96 h-96 bg-emerald-600/10 rounded-full blur-3xl opacity-70"></div>
-        <div className="absolute bottom-0 right-1/4 w-96 h-96 bg-teal-600/10 rounded-full blur-3xl opacity-70" style={{ animationDelay: '1s' }}></div>
-        <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-green-700/5 rounded-full blur-3xl"></div>
+        <div className="absolute top-0 left-1/4 w-72 h-72 sm:w-96 sm:h-96 bg-emerald-600/10 rounded-full blur-xl sm:blur-3xl opacity-70" />
+        <div className="absolute bottom-0 right-1/4 w-72 h-72 sm:w-96 sm:h-96 bg-teal-600/10 rounded-full blur-xl sm:blur-3xl opacity-70" />
+        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[320px] h-[320px] sm:w-[600px] sm:h-[600px] bg-green-700/5 rounded-full blur-xl sm:blur-3xl" />
       </div>
       
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         {/* Section Header */}
         <motion.div
-          initial={{ opacity: 0, y: -20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.5 }}
+          initial={motionLite ? { opacity: 1, y: 0 } : { opacity: 0, y: -20 }}
+          whileInView={motionLite ? undefined : { opacity: 1, y: 0 }}
+          viewport={motionLite ? undefined : { once: true }}
+          transition={{ duration: motionLite ? 0 : 0.5 }}
           className="text-center mb-16"
         >
           <h2 className="text-6xl font-bold text-white mb-6">
@@ -169,11 +171,11 @@ const HowItWorks = () => {
           <motion.button
             onClick={goToPrevious}
             className="absolute left-0 top-1/2 -translate-y-1/2 -translate-x-4 sm:-translate-x-8 md:-translate-x-12 z-20 bg-white/10 backdrop-blur-md hover:bg-white/20 rounded-full p-3 sm:p-4 shadow-lg border border-white/20 transition-all duration-300 group"
-            whileHover={isMobile ? undefined : { scale: 1.1, x: -5 }}
+            whileHover={isMobile || motionLite ? undefined : { scale: 1.1, x: -5 }}
             whileTap={{ scale: 0.95 }}
-            initial={{ opacity: 0, x: -20 }}
+            initial={motionLite ? { opacity: 1, x: 0 } : { opacity: 0, x: -20 }}
             animate={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.5 }}
+            transition={{ duration: motionLite ? 0 : 0.5 }}
           >
             <svg 
               className="w-6 h-6 sm:w-8 sm:h-8 text-white group-hover:text-purple-300 transition-colors" 
@@ -189,11 +191,11 @@ const HowItWorks = () => {
           <motion.button
             onClick={goToNext}
             className="absolute right-0 top-1/2 -translate-y-1/2 translate-x-4 sm:translate-x-8 md:translate-x-12 z-20 bg-white/10 backdrop-blur-md hover:bg-white/20 rounded-full p-3 sm:p-4 shadow-lg border border-white/20 transition-all duration-300 group"
-            whileHover={isMobile ? undefined : { scale: 1.1, x: 5 }}
+            whileHover={isMobile || motionLite ? undefined : { scale: 1.1, x: 5 }}
             whileTap={{ scale: 0.95 }}
-            initial={{ opacity: 0, x: 20 }}
+            initial={motionLite ? { opacity: 1, x: 0 } : { opacity: 0, x: 20 }}
             animate={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.5 }}
+            transition={{ duration: motionLite ? 0 : 0.5 }}
           >
             <svg 
               className="w-6 h-6 sm:w-8 sm:h-8 text-white group-hover:text-purple-300 transition-colors" 
@@ -206,8 +208,8 @@ const HowItWorks = () => {
           </motion.button>
 
           <div className="overflow-hidden rounded-3xl">
-            <div 
-              className="flex transition-transform duration-1000 ease-in-out"
+            <div
+              className={`flex ease-in-out ${motionLite ? 'transition-transform duration-300' : 'transition-transform duration-1000'}`}
               style={{ transform: `translateX(-${currentSlide * 100}%)` }}
             >
               {/* Render slides with 4 cards each */}
@@ -216,18 +218,26 @@ const HowItWorks = () => {
                   {steps.slice(slideIndex * 4, slideIndex * 4 + 4).map((step, index) => (
                     <motion.div
                       key={step.number}
-                      initial={{ opacity: 0, y: 30, scale: 0.9 }}
-                      whileInView={{ opacity: 1, y: 0, scale: 1 }}
-                      viewport={{ once: true }}
-                      transition={{ delay: index * 0.15, duration: 0.6, type: "spring" }}
+                      initial={
+                        motionLite
+                          ? { opacity: 1, y: 0, scale: 1 }
+                          : { opacity: 0, y: 30, scale: 0.9 }
+                      }
+                      whileInView={motionLite ? undefined : { opacity: 1, y: 0, scale: 1 }}
+                      viewport={motionLite ? undefined : { once: true, margin: '0px 0px -8% 0px' }}
+                      transition={
+                        motionLite
+                          ? { duration: 0 }
+                          : { delay: index * 0.1, duration: 0.45, ease: [0.25, 0.1, 0.25, 1] }
+                      }
                       className={`group relative bg-gradient-to-br ${step.color} rounded-3xl p-8 h-full cursor-pointer overflow-hidden`}
-                      whileHover={isMobile ? undefined : { scale: 1.08, y: -12, rotateY: 5 }}
+                      whileHover={isMobile || motionLite ? undefined : { scale: 1.08, y: -12, rotateY: 5 }}
                       style={{
                         boxShadow: `0 20px 60px ${step.glowColor}, 0 0 0 1px rgba(255, 255, 255, 0.1) inset`
                       }}
                     >
                       {/* Animated background glow */}
-                      {isMobile ? (
+                      {isMobile || motionLite ? (
                         <div
                           className="absolute inset-0 opacity-25"
                           style={{
@@ -257,8 +267,8 @@ const HowItWorks = () => {
                       {/* Number Badge */}
                       <motion.div 
                         className="absolute -top-5 -left-5 w-20 h-20 bg-white rounded-full flex items-center justify-center text-3xl font-bold shadow-2xl z-10"
-                      whileHover={isMobile ? undefined : { rotate: 360, scale: 1.1 }}
-                        transition={{ duration: 0.5 }}
+                      whileHover={isMobile || motionLite ? undefined : { rotate: 360, scale: 1.1 }}
+                        transition={{ duration: motionLite ? 0.15 : 0.5 }}
                       >
                         <span className={`bg-gradient-to-br ${step.color} bg-clip-text text-transparent font-extrabold`}>
                           {step.number}
@@ -268,8 +278,8 @@ const HowItWorks = () => {
                       {/* Icon with glow */}
                       <motion.div 
                         className="text-white mb-6 mt-6 relative z-10"
-                      whileHover={isMobile ? undefined : { scale: 1.2, rotate: 10 }}
-                        transition={{ duration: 0.3 }}
+                      whileHover={isMobile || motionLite ? undefined : { scale: 1.2, rotate: 10 }}
+                        transition={{ duration: motionLite ? 0.15 : 0.3 }}
                         style={{
                           filter: 'drop-shadow(0 0 20px rgba(255, 255, 255, 0.5))'
                         }}
@@ -293,9 +303,9 @@ const HowItWorks = () => {
                       {/* Arrow indicator */}
                       <motion.div 
                         className="absolute bottom-6 right-6 text-white"
-                        initial={{ opacity: 0, x: -10 }}
-                      whileHover={isMobile ? undefined : { opacity: 1, x: 0 }}
-                        transition={{ duration: 0.3 }}
+                        initial={{ opacity: motionLite ? 1 : 0, x: motionLite ? 0 : -10 }}
+                      whileHover={isMobile || motionLite ? undefined : { opacity: 1, x: 0 }}
+                        transition={{ duration: motionLite ? 0 : 0.3 }}
                       >
                         <svg className="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M9 5l7 7-7 7" />
