@@ -1,0 +1,19 @@
+{
+  "name": "ScrapDig",
+  "short_name": "ScrapDig",
+  "icons": [
+    {
+      "src": "/favicon.png",
+      "sizes": "1024x1024",
+      "type": "image/png"
+    },
+    {
+      "src": "/favicon.ico",
+      "sizes": "16x16 32x32 48x48",
+      "type": "image/x-icon"
+    }
+  ],
+  "theme_color": "#23b011",
+  "background_color": "#ffffff",
+  "display": "standalone"
+}
