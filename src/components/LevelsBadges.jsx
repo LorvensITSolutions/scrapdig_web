@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { motion } from 'framer-motion'
-import { useMotionLite } from '../hooks/useMotionLite'
+import { motion, MotionConfig } from 'framer-motion'
 // Import level badge images
 import bronzeBadge from '../assets/levelbadges/bronzebadge.png'
 import silverBadge from '../assets/levelbadges/silverbadge.png'
@@ -15,7 +14,6 @@ import ecoVisionary from '../assets/badges/eco-visionary.png'
 import ecoScavenger from '../assets/badges/eco-scavenger.png'
 
 const LevelsBadges = () => {
-  const motionLite = useMotionLite()
   const [showAchievementBadges, setShowAchievementBadges] = useState(false)
   const [isMobile, setIsMobile] = useState(() =>
     typeof window !== 'undefined' ? window.matchMedia('(max-width: 640px)').matches : false
@@ -125,15 +123,21 @@ const LevelsBadges = () => {
     }
   ]
 
+  /** Mobile: shorter timings so motion is visible but less likely to jank */
+  const progressDuration = isMobile ? 1.35 : 3
+  const badgeDelayStep = isMobile ? 0.22 : 0.6
+  const badgeDelayBase = isMobile ? 0.08 : 0.2
+  const badgeAnimDuration = isMobile ? 0.32 : 0.5
+
   const containerVariants = {
     hidden: { opacity: 0 },
     visible: {
       opacity: 1,
       transition: {
-        staggerChildren: 0.15,
-        delayChildren: 0.1
-      }
-    }
+        staggerChildren: isMobile ? 0.08 : 0.15,
+        delayChildren: isMobile ? 0.05 : 0.1,
+      },
+    },
   }
 
   const itemVariants = {
@@ -142,13 +146,14 @@ const LevelsBadges = () => {
       opacity: 1,
       y: 0,
       transition: {
-        duration: 0.5,
-        ease: "easeOut"
-      }
-    }
+        duration: isMobile ? 0.4 : 0.5,
+        ease: 'easeOut',
+      },
+    },
   }
 
   return (
+    <MotionConfig reducedMotion="never">
     <section id="levels-badges" className="py-12 sm:py-16 lg:py-24 bg-gradient-to-br from-gray-50 via-white to-green-50 relative overflow-visible">
       {/* Decorative background elements */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
@@ -159,17 +164,17 @@ const LevelsBadges = () => {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         {/* Section Header */}
         <motion.div
-          initial={motionLite ? { opacity: 1, y: 0 } : { opacity: 0, y: -20 }}
-          whileInView={motionLite ? undefined : { opacity: 1, y: 0 }}
-          viewport={motionLite ? undefined : { once: true }}
-          transition={{ duration: motionLite ? 0 : 0.6 }}
+          initial={{ opacity: 0, y: -20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: isMobile ? 0.45 : 0.6 }}
           className="text-center mb-8 sm:mb-12 lg:mb-16"
         >
           <motion.div
-            initial={motionLite ? { scale: 1 } : { scale: 0.9 }}
-            whileInView={motionLite ? undefined : { scale: 1 }}
-            viewport={motionLite ? undefined : { once: true }}
-            transition={{ duration: motionLite ? 0 : 0.35 }}
+            initial={{ scale: 0.9 }}
+            whileInView={{ scale: 1 }}
+            viewport={{ once: true }}
+            transition={{ duration: isMobile ? 0.28 : 0.35 }}
             className="inline-block mb-6"
           >
             <span className="inline-flex items-center px-4 py-2 sm:px-6 sm:py-3 rounded-full bg-gradient-to-r from-primary to-emerald-600 text-white text-xs sm:text-sm font-bold shadow-lg">
@@ -187,24 +192,16 @@ const LevelsBadges = () => {
         {/* Levels Grid */}
         <motion.div
           className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-4 sm:gap-5 lg:gap-4"
-          variants={
-            motionLite
-              ? { hidden: { opacity: 1 }, visible: { opacity: 1 } }
-              : containerVariants
-          }
-          initial={motionLite ? 'visible' : 'hidden'}
-          whileInView={motionLite ? undefined : 'visible'}
-          viewport={{ once: true, amount: motionLite ? 1 : 0.2 }}
+          variants={containerVariants}
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, amount: isMobile ? 0.12 : 0.2 }}
         >
           {levels.map((level, index) => (
             <motion.div
               key={index}
-              variants={
-                motionLite
-                  ? { hidden: { opacity: 1, y: 0 }, visible: { opacity: 1, y: 0 } }
-                  : itemVariants
-              }
-              whileHover={isMobile || motionLite ? undefined : { scale: 1.03, y: -5 }}
+              variants={itemVariants}
+              whileHover={isMobile ? undefined : { scale: 1.03, y: -5 }}
               className={`group relative ${level.bgColor} rounded-xl sm:rounded-2xl p-4 sm:p-5 md:p-6 lg:p-8 border-2 ${level.borderColor} hover:shadow-2xl transition-all duration-300 transform hover:border-primary overflow-visible`}
             >
               {/* Special Badge */}
@@ -221,28 +218,20 @@ const LevelsBadges = () => {
                   transition={{ type: "spring", stiffness: 300 }}
                   className="relative inline-block"
                 >
-                  {/* Glow effect (animated on desktop, static on mobile) */}
-                  {isMobile ? (
-                    <div
-                      className={`absolute inset-0 bg-gradient-to-r ${level.color} rounded-full blur-xl`}
-                      style={{ transform: 'scale(1.3)', opacity: 0.55 }}
-                    />
-                  ) : (
-                    <motion.div
-                      animate={{
-                        scale: [1, 1.1],
-                        opacity: [0.4, 0.7],
-                      }}
-                      transition={{
-                        duration: 3,
-                        repeat: 2,
-                        repeatType: "reverse",
-                        ease: "easeInOut"
-                      }}
-                      className={`absolute inset-0 bg-gradient-to-r ${level.color} rounded-full blur-xl`}
-                      style={{ transform: 'scale(1.3)' }}
-                    />
-                  )}
+                  <motion.div
+                    animate={{
+                      scale: isMobile ? [1, 1.06, 1] : [1, 1.1],
+                      opacity: isMobile ? [0.4, 0.6, 0.4] : [0.4, 0.7],
+                    }}
+                    transition={{
+                      duration: isMobile ? 2.2 : 3,
+                      repeat: isMobile ? 1 : 2,
+                      repeatType: 'reverse',
+                      ease: 'easeInOut',
+                    }}
+                    className={`absolute inset-0 bg-gradient-to-r ${level.color} rounded-full blur-xl`}
+                    style={{ transform: 'scale(1.3)' }}
+                  />
                   
                   {/* Level Badge - Large and Prominent */}
                   <motion.img 
@@ -332,10 +321,10 @@ const LevelsBadges = () => {
 
         {/* Level Progression Visual */}
         <motion.div
-          initial={motionLite ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
-          whileInView={motionLite ? undefined : { opacity: 1, y: 0 }}
-          viewport={motionLite ? undefined : { once: true }}
-          transition={{ delay: motionLite ? 0 : 0.5, duration: motionLite ? 0 : 0.45 }}
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ delay: isMobile ? 0.2 : 0.5, duration: isMobile ? 0.35 : 0.45 }}
           className="mt-8 sm:mt-12 lg:mt-16 bg-white rounded-xl sm:rounded-2xl p-4 sm:p-6 lg:p-8 shadow-xl border-2 border-primary/20"
         >
           <div className="flex flex-col gap-4 mb-6 sm:mb-8">
@@ -358,14 +347,14 @@ const LevelsBadges = () => {
                 }`}
               >
                 <motion.span
-                  layout={!motionLite}
+                  layout={false}
                   className="absolute inline-block h-5 w-5 sm:h-6 sm:w-6 transform rounded-full bg-white shadow-lg"
                   style={{
                     left: showAchievementBadges ? 'calc(100% - 1.5rem)' : '0.25rem'
                   }}
                   transition={
-                    motionLite
-                      ? { type: 'tween', duration: 0.2, ease: 'easeOut' }
+                    isMobile
+                      ? { type: 'tween', duration: 0.22, ease: 'easeOut' }
                       : {
                           type: 'spring',
                           stiffness: 500,
@@ -389,140 +378,127 @@ const LevelsBadges = () => {
               <motion.div
                 key={`line-${showAchievementBadges}`}
                 className="absolute top-1/2 left-[10%] h-1 sm:h-1.5 md:h-2 bg-gradient-to-r from-amber-600 via-gray-400 via-yellow-400 via-slate-300 to-cyan-400 rounded-full transform -translate-y-1/2 z-1"
-                initial={{ width: motionLite ? '80%' : 0 }}
+                initial={{ width: 0 }}
                 animate={{ width: '80%' }}
-                transition={{ duration: motionLite ? 0.01 : 3, ease: 'easeInOut' }}
+                transition={{ duration: progressDuration, ease: 'easeInOut' }}
               />
 
               <motion.div
                 key={`dot-${showAchievementBadges}`}
                 className="absolute top-1/2 h-2.5 w-2.5 sm:h-3 sm:w-3 md:h-4 md:w-4 bg-primary rounded-full transform -translate-y-1/2 z-20 shadow-lg"
-                initial={{ left: motionLite ? '90%' : '10%' }}
+                initial={{ left: '10%' }}
                 animate={{ left: '90%' }}
-                transition={{ duration: motionLite ? 0.01 : 3, ease: 'easeInOut' }}
+                transition={{ duration: progressDuration, ease: 'easeInOut' }}
                 style={{ transform: 'translate(-50%, -50%)' }}
               />
 
               {levels.map((level, index) => {
-                const badgeDelay = motionLite ? 0 : index * 0.6 + 0.2
-                const badgeDuration = motionLite ? 0 : 0.5
+                const badgeDelay = index * badgeDelayStep + badgeDelayBase
+                const badgeDuration = badgeAnimDuration
 
                 return (
                   <motion.div
                     key={`badge-container-${showAchievementBadges}-${index}`}
                     className="relative z-10 flex flex-col items-center flex-shrink-0"
-                    initial={{ scale: motionLite ? 1 : 0.8, opacity: motionLite ? 1 : 0.5 }}
+                    initial={{ scale: 0.8, opacity: 0.5 }}
                     animate={{
                       scale: 1,
                       opacity: 1,
                     }}
                     transition={{
                       delay: badgeDelay,
-                      duration: motionLite ? 0 : badgeDuration,
+                      duration: badgeDuration,
                       ease: 'easeOut',
                     }}
-                    whileHover={isMobile || motionLite ? undefined : { scale: 1.1 }}
+                    whileHover={isMobile ? undefined : { scale: 1.1 }}
                     style={{ width: '20%', minWidth: '80px' }}
                   >
-                  {!motionLite && (
-                    <motion.div
-                      key={`glow-${showAchievementBadges}-${index}`}
-                      className={`absolute inset-0 bg-gradient-to-r ${level.color} rounded-full blur-xl`}
-                      initial={{ opacity: 0, scale: 0.8 }}
+                  <motion.div
+                    key={`glow-${showAchievementBadges}-${index}`}
+                    className={`absolute inset-0 bg-gradient-to-r ${level.color} rounded-full blur-xl`}
+                    initial={{ opacity: 0, scale: 0.8 }}
+                    animate={{
+                      opacity: [0, isMobile ? 0.45 : 0.6, 0],
+                      scale: isMobile ? [0.85, 1.15, 0.85] : [0.8, 1.3, 0.8],
+                    }}
+                    transition={{
+                      delay: badgeDelay,
+                      duration: badgeDuration + (isMobile ? 0.12 : 0.2),
+                      ease: 'easeOut',
+                      repeat: 1,
+                      repeatType: 'reverse',
+                    }}
+                    style={{
+                      width: '80px',
+                      height: '80px',
+                      margin: '-30px auto',
+                      top: '50%',
+                      left: '50%',
+                      transform: 'translate(-50%, -50%)',
+                    }}
+                  />
+
+                  <div className="relative flex items-center justify-center">
+                    <motion.img
+                      key={`${showAchievementBadges ? 'achievement' : 'level'}-${index}`}
+                      src={showAchievementBadges ? level.achievementBadge : level.levelBadge}
+                      alt={
+                        showAchievementBadges
+                          ? `${level.badgeName} Achievement Badge`
+                          : `${level.name} Level Badge`
+                      }
+                      className="w-16 h-16 sm:w-20 sm:h-20 md:w-28 md:h-28 lg:w-36 lg:h-36 xl:w-40 xl:h-40 object-contain drop-shadow-2xl"
+                      initial={
+                        isMobile
+                          ? { scale: 0.88, opacity: 0 }
+                          : { scale: 0.8, opacity: 0, rotate: -180 }
+                      }
                       animate={{
-                        opacity: [0, 0.6, 0],
-                        scale: [0.8, 1.3, 0.8],
+                        scale: 1,
+                        opacity: 1,
+                        rotate: 0,
+                      }}
+                      whileInView={{
+                        scale: isMobile ? [1, 1.1, 1] : [1, 1.2, 1],
+                      }}
+                      viewport={{ once: true }}
+                      transition={{
+                        rotate: { duration: isMobile ? 0.35 : 0.5, ease: 'easeOut' },
+                        scale: {
+                          duration: isMobile ? 0.32 : 0.4,
+                          ease: 'easeOut',
+                          delay: badgeDelay + badgeDuration * 0.3,
+                          repeat: 1,
+                          repeatType: 'reverse',
+                        },
+                        opacity: { duration: isMobile ? 0.25 : 0.3 },
+                      }}
+                      whileHover={
+                        isMobile
+                          ? undefined
+                          : {
+                              scale: 1.1,
+                              rotate: showAchievementBadges ? 360 : -5,
+                              transition: { rotate: { duration: 0.6 } },
+                            }
+                      }
+                    />
+
+                    <motion.div
+                      key={`ring-${showAchievementBadges}-${index}`}
+                      className="absolute inset-0 border-2 sm:border-3 md:border-4 border-primary rounded-full"
+                      initial={{ scale: 1, opacity: 0 }}
+                      animate={{
+                        scale: [1, isMobile ? 1.35 : 1.5],
+                        opacity: [0.8, 0],
                       }}
                       transition={{
                         delay: badgeDelay,
-                        duration: badgeDuration + 0.2,
+                        duration: badgeDuration + (isMobile ? 0.2 : 0.3),
                         ease: 'easeOut',
-                        repeat: 1,
-                        repeatType: 'reverse',
                       }}
-                      style={{
-                        width: '80px',
-                        height: '80px',
-                        margin: '-30px auto',
-                        top: '50%',
-                        left: '50%',
-                        transform: 'translate(-50%, -50%)',
-                      }}
+                      style={{ margin: '-4px' }}
                     />
-                  )}
-
-                  <div className="relative flex items-center justify-center">
-                    {motionLite ? (
-                      <img
-                        key={`${showAchievementBadges ? 'achievement' : 'level'}-${index}`}
-                        src={showAchievementBadges ? level.achievementBadge : level.levelBadge}
-                        alt={
-                          showAchievementBadges
-                            ? `${level.badgeName} Achievement Badge`
-                            : `${level.name} Level Badge`
-                        }
-                        className="w-16 h-16 sm:w-20 sm:h-20 md:w-28 md:h-28 lg:w-36 lg:h-36 xl:w-40 xl:h-40 object-contain drop-shadow-2xl"
-                      />
-                    ) : (
-                      <motion.img
-                        key={`${showAchievementBadges ? 'achievement' : 'level'}-${index}`}
-                        src={showAchievementBadges ? level.achievementBadge : level.levelBadge}
-                        alt={
-                          showAchievementBadges
-                            ? `${level.badgeName} Achievement Badge`
-                            : `${level.name} Level Badge`
-                        }
-                        className="w-16 h-16 sm:w-20 sm:h-20 md:w-28 md:h-28 lg:w-36 lg:h-36 xl:w-40 xl:h-40 object-contain drop-shadow-2xl"
-                        initial={{ scale: 0.8, opacity: 0, rotate: -180 }}
-                        animate={{
-                          scale: 1,
-                          opacity: 1,
-                          rotate: 0,
-                        }}
-                        whileInView={{
-                          scale: [1, 1.2, 1],
-                        }}
-                        viewport={{ once: true }}
-                        transition={{
-                          rotate: { duration: 0.5, ease: 'easeOut' },
-                          scale: {
-                            duration: 0.4,
-                            ease: 'easeOut',
-                            delay: badgeDelay + badgeDuration * 0.3,
-                            repeat: 1,
-                            repeatType: 'reverse',
-                          },
-                          opacity: { duration: 0.3 },
-                        }}
-                        whileHover={
-                          isMobile
-                            ? undefined
-                            : {
-                                scale: 1.1,
-                                rotate: showAchievementBadges ? 360 : -5,
-                                transition: { rotate: { duration: 0.6 } },
-                              }
-                        }
-                      />
-                    )}
-
-                    {!motionLite && (
-                      <motion.div
-                        key={`ring-${showAchievementBadges}-${index}`}
-                        className="absolute inset-0 border-2 sm:border-3 md:border-4 border-primary rounded-full"
-                        initial={{ scale: 1, opacity: 0 }}
-                        animate={{
-                          scale: [1, 1.5],
-                          opacity: [0.8, 0],
-                        }}
-                        transition={{
-                          delay: badgeDelay,
-                          duration: badgeDuration + 0.3,
-                          ease: 'easeOut',
-                        }}
-                        style={{ margin: '-4px' }}
-                      />
-                    )}
                   </div>
                   
                   {/* Level Info */}
@@ -550,6 +526,7 @@ const LevelsBadges = () => {
         </motion.div>
       </div>
     </section>
+    </MotionConfig>
   )
 }
 
