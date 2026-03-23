@@ -1,11 +1,16 @@
-import React from 'react'
+import React, { Suspense, lazy } from 'react'
 import { BrowserRouter, Routes, Route, useLocation } from 'react-router-dom'
 import { AnimatePresence, motion } from 'framer-motion'
-import HomePage from './pages/HomePage'
-import PrivacyPolicy from './pages/PrivacyPolicy'
-import RefundCancellationPolicy from './pages/RefundCancellationPolicy'
-import ReferralPage from './pages/ReferralPage'
-import AccountDeletionPage from './pages/AccountDeletionPage'
+
+const HomePage = lazy(() => import('./pages/HomePage'))
+const PrivacyPolicy = lazy(() => import('./pages/PrivacyPolicy'))
+const RefundCancellationPolicy = lazy(() => import('./pages/RefundCancellationPolicy'))
+const ReferralPage = lazy(() => import('./pages/ReferralPage'))
+const AccountDeletionPage = lazy(() => import('./pages/AccountDeletionPage'))
+
+const PageLoader = () => (
+  <div className="min-h-screen bg-white" aria-busy="true" aria-label="Loading page" />
+)
 
 const AnimatedRoutes = () => {
   const location = useLocation()
@@ -14,18 +19,20 @@ const AnimatedRoutes = () => {
     <AnimatePresence mode="wait">
       <motion.div
         key={location.pathname}
-        initial={{ opacity: 0, y: 10 }}
-        animate={{ opacity: 1, y: 0 }}
-        exit={{ opacity: 0, y: -10 }}
-        transition={{ duration: 0.25, ease: 'easeOut' }}
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        exit={{ opacity: 0 }}
+        transition={{ duration: 0.15, ease: 'easeOut' }}
       >
-        <Routes location={location}>
-          <Route path="/" element={<HomePage />} />
-          <Route path="/privacy-policy" element={<PrivacyPolicy />} />
-          <Route path="/refund-cancellation-policy" element={<RefundCancellationPolicy />} />
-          <Route path="/referral" element={<ReferralPage />} />
-          <Route path="/account-deletion" element={<AccountDeletionPage />} />
-        </Routes>
+        <Suspense fallback={<PageLoader />}>
+          <Routes location={location}>
+            <Route path="/" element={<HomePage />} />
+            <Route path="/privacy-policy" element={<PrivacyPolicy />} />
+            <Route path="/refund-cancellation-policy" element={<RefundCancellationPolicy />} />
+            <Route path="/referral" element={<ReferralPage />} />
+            <Route path="/account-deletion" element={<AccountDeletionPage />} />
+          </Routes>
+        </Suspense>
       </motion.div>
     </AnimatePresence>
   )
